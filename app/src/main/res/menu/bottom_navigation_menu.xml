@@ -3,15 +3,15 @@
     <item
         android:id="@+id/navigation_products"
         android:icon="@drawable/ic_baseline_local_pizza_24"
-        android:title="Products"/>
+        android:title="@string/products"/>
 
     <item
         android:id="@+id/navigation_orders"
         android:icon="@drawable/ic_baseline_order_long_24"
-        android:title="Orders"/>
+        android:title="@string/orders"/>
 
     <item
         android:id="@+id/navigation_menu"
         android:icon="@drawable/ic_baseline_menu_24"
-        android:title="Menu"/>
+        android:title="@string/menu"/>
 </menu>

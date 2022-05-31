@@ -5,18 +5,12 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.MenuFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Hello Menu Fragment!" />
-
     <Button
         android:id="@+id/sign_out_button"
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_margin="32dp"
-        android:text="Sign Out"
+        android:text="@string/sign_out"
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"/>

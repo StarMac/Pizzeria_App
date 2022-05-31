@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="50"
-            android:hint="Email"
+            android:hint="@string/email"
             android:singleLine="true"
             android:inputType="textEmailAddress" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -74,7 +74,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="50"
-            android:hint="Password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -99,7 +99,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="50"
-            android:hint="Repeat Password"
+            android:hint="@string/repeat_password"
             android:inputType="textPassword"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -123,7 +123,7 @@
         android:id="@+id/forgot_password_text_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Forgot password"
+        android:text="@string/forgot_password"
         android:textColor="@color/blue"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/password_TextInputLayout"
@@ -150,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:text="Sign in with Google"
+        android:text="@string/sign_in_with_google"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -163,7 +163,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:background="@drawable/border"
-        android:contentDescription="Google image button"
+        android:contentDescription="@string/google_image_button"
         android:padding="8dp"
         android:src="@drawable/ic_google_icon"
         app:layout_constraintEnd_toEndOf="parent"
