@@ -12,6 +12,12 @@
         tools:layout="@layout/fragment_products" />
 
     <fragment
+        android:id="@+id/navigation_restaurants"
+        android:name="com.example.pizzeriaapp.view.fragment.RestaurantsFragment"
+        android:label="@string/restaurants"
+        tools:layout="@layout/fragment_restaurants" />
+
+    <fragment
         android:id="@+id/navigation_orders"
         android:name="com.example.pizzeriaapp.view.fragment.OrderListFragment"
         android:label="@string/title_orders"

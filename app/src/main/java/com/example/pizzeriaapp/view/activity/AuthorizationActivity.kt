@@ -3,6 +3,7 @@ package com.example.pizzeriaapp.view.activity
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import com.example.pizzeriaapp.databinding.ActivityAuthorizationBinding
@@ -29,6 +30,12 @@ class AuthorizationActivity :
     private fun init() {
         binding.signInTextButton.setOnClickListener { showSignIn() }
         binding.signUpTextButton.setOnClickListener { showSignUp() }
+        binding.signInButton.setOnClickListener { signInWithEmail() }
+        binding.signUpButton.setOnClickListener { signUpWithEmail() }
+        binding.googleImageButton.setOnClickListener {
+            signInWithGoogle()
+        }
+
         auth = Firebase.auth
 
         //Configure Google SignIn
@@ -38,13 +45,34 @@ class AuthorizationActivity :
             .build()
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
+    }
 
-        binding.googleImageButton.setOnClickListener {
-            signIn()
+    private fun signUpWithEmail() {
+        if (TextUtils.isEmpty(binding.emailEditText.text.toString())) {
+            binding.emailEditText.error = "Email cannot be empty"
+            binding.emailEditText.requestFocus()
+        } else if (TextUtils.isEmpty(binding.passwordEditText.text.toString())) {
+            binding.passwordEditText.error = "Password cannot be empty"
+            binding.passwordEditText.requestFocus()
+        } else if (binding.passwordEditText.text.toString() != binding.repeatPasswordEditText.text.toString()) {
+            binding.repeatPasswordEditText.error = "Passwords don't match"
+            binding.repeatPasswordEditText.requestFocus()
+        } else {
+            auth.createUserWithEmailAndPassword(
+                binding.emailEditText.text.toString().trim(),
+                binding.passwordEditText.toString().trim())
+            val user = auth.currentUser
+            updateUI(user)
         }
     }
 
-    private fun signIn() {
+    private fun signInWithEmail() {
+        auth.signInWithEmailAndPassword(binding.emailEditText.text.toString().trim(), binding.passwordEditText.text.toString().trim())
+        val currentUser: FirebaseUser? = auth.currentUser
+        updateUI(currentUser)
+    }
+
+    private fun signInWithGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, RC_SIGN_IN)
     }
@@ -52,12 +80,10 @@ class AuthorizationActivity :
     override fun onStart() {
         super.onStart()
         val currentUser: FirebaseUser? = auth.currentUser
-        if (currentUser != null) {
-            val intent = Intent(applicationContext, MainActivity::class.java)
-            startActivity(intent)
-        }
+        updateUI(currentUser)
     }
 
+    //TODO Refactor to not deprecated
     @Suppress("DEPRECATION")
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

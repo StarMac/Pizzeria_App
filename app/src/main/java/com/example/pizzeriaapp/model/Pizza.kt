@@ -5,5 +5,4 @@ data class Pizza (
     val price: Int,
     val size: String,
     val photo: String,
-    val ingredientsList : List<Ingredient>
-        )
+    val ingredientsList : List<Ingredient>)
