@@ -81,8 +81,9 @@ dependencies {
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
 
     //Firebase
-    implementation 'com.google.firebase:firebase-database:20.0.5'
-    implementation 'com.google.firebase:firebase-auth:21.0.5'
+    implementation 'com.google.android.gms:play-services-auth:20.2.0'
+    implementation 'com.google.firebase:firebase-database-ktx'
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0' //maybe not
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:30.1.0')
     // When using the BoM, you don't specify versions in Firebase library dependencies
