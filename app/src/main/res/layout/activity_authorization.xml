@@ -95,11 +95,11 @@
         android:visibility="gone">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/repeat_password_editText"
+            android:id="@+id/confirm_password_editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxLength="50"
-            android:hint="@string/repeat_password"
+            android:hint="@string/confirm_password"
             android:inputType="textPassword"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -139,7 +139,6 @@
         android:textAllCaps="false"
         android:textSize="16sp"
         android:textStyle="bold"
-
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_TextInputLayout"

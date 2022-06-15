@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     tools:context=".view.fragment.OrderListFragment">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_list_recycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/no_orders" />
+        tools:listitem="@layout/order_item" />
 
 </FrameLayout>
