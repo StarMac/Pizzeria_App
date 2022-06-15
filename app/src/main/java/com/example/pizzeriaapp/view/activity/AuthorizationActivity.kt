@@ -178,20 +178,7 @@ class AuthorizationActivity :
                     userDatabaseRef.child(user.uid).setValue(newUser)
 
                     //TODO delete test 2
-                    val pizza1 = Pizza("Hawaiian Pizza", "25",
-                        "https://www.jessicagavin.com/wp-content/uploads/2020/07/hawaiian-pizza-16-1200.jpg",
-                        "mozzarella, pineapple, bacon, oregano, ounces, pizza sauce")
-
-                    val pizza2 = Pizza("Pizza With Tomatoes", "21",
-                        "https://eclecticrecipes.com/wp-content/uploads/2011/10/zucchini-pizza.jpg",
-                        "mozzarella, tomatoes, bacon, oregano, ounces, pizza sauce")
-                    val sdf = SimpleDateFormat("dd MM yyyy HH:mm")
-                    val calendar = Calendar.getInstance()
-                    val orderDate = sdf.format(calendar.time)
-                    val order1 = Order(orderDate,pizza1.name,pizza1.photo,"Status: Waiting",pizza1.price + " uah",user.uid)
-                    pizzaDatabaseRef.child(pizza1.name!!).setValue(pizza1)
-                    pizzaDatabaseRef.child(pizza2.name!!).setValue(pizza2)
-                    orderDatabaseRef.child(order1.time.toString()).setValue(order1)
+                    testFirebase(user)
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -208,6 +195,26 @@ class AuthorizationActivity :
             startActivity(intent)
         }
     }
+
+        private fun testFirebase(user: FirebaseUser?){
+            if (user != null){
+                val pizza1 = Pizza("Hawaiian Pizza", "25",
+                    "https://www.jessicagavin.com/wp-content/uploads/2020/07/hawaiian-pizza-16-1200.jpg",
+                    "mozzarella, pineapple, bacon, oregano, ounces, pizza sauce")
+
+                val pizza2 = Pizza("Pizza With Tomatoes", "21",
+                    "https://eclecticrecipes.com/wp-content/uploads/2011/10/zucchini-pizza.jpg",
+                    "mozzarella, tomatoes, bacon, oregano, ounces, pizza sauce")
+                val sdf = SimpleDateFormat("dd MM yyyy HH:mm")
+                val calendar = Calendar.getInstance()
+                val orderDate = sdf.format(calendar.time)
+                val order1 = Order(orderDate,pizza1.name,pizza1.photo,"Status: Waiting",pizza1.price + " uah",user.uid)
+                val order2 = Order(orderDate,pizza2.name,pizza2.photo,"Status: Waiting",pizza2.price + " uah",user.uid)
+                pizzaDatabaseRef.child(pizza1.name!!).setValue(pizza1)
+                pizzaDatabaseRef.child(pizza2.name!!).setValue(pizza2)
+                orderDatabaseRef.child(order1.time + " " + order1.uId).setValue(order1)
+            }
+        }
 
     private fun showSignIn() {
         binding.emailEditText.setText("")
