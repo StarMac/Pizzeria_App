@@ -1,16 +1,23 @@
 package com.example.pizzeriaapp.view.fragment
 
+import android.content.ContentValues.TAG
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzeriaapp.adapter.OrderAdapter
 import com.example.pizzeriaapp.databinding.FragmentOrderListBinding
 import com.example.pizzeriaapp.model.Order
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
 
 class OrderListFragment : BaseFragment<FragmentOrderListBinding>(FragmentOrderListBinding::inflate) {
     private lateinit var databaseReference: DatabaseReference
+    private lateinit var auth: FirebaseAuth
     private lateinit var orderRecyclerView: RecyclerView
     private lateinit var orderArrayList : ArrayList<Order>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -19,17 +26,18 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(FragmentOrderLi
     }
 
     private fun init() {
+        auth = Firebase.auth
         orderRecyclerView = binding.orderListRecycleView
         orderRecyclerView.layoutManager = LinearLayoutManager(binding.root.context)
         orderRecyclerView.setHasFixedSize(true)
-
         orderArrayList= arrayListOf<Order>()
-        getProductData()
+        getOrderData()
     }
 
-    private fun getProductData() {
+    private fun getOrderData() {
         databaseReference = FirebaseDatabase.getInstance().getReference("Order")
-        databaseReference.addValueEventListener(object : ValueEventListener {
+        val queryDatabase = databaseReference.orderByChild("uid").equalTo(auth.currentUser!!.uid)
+        queryDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){
                     for(orderSnapshot in snapshot.children){
@@ -41,7 +49,7 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(FragmentOrderLi
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.w(TAG, "loadPost:onCancelled", error.toException())
             }
 
         })

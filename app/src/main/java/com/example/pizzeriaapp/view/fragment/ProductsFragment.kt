@@ -1,6 +1,8 @@
 package com.example.pizzeriaapp.view.fragment
 
+import android.content.ContentValues
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -41,7 +43,7 @@ class ProductsFragment : BaseFragment<FragmentProductsBinding>(FragmentProductsB
             }
 
             override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
+                Log.w(ContentValues.TAG, "loadPost:onCancelled", error.toException())
             }
 
         })

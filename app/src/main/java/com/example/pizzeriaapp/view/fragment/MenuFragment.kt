@@ -2,6 +2,7 @@ package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import com.example.pizzeriaapp.databinding.FragmentMenuBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase

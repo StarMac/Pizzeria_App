@@ -3,65 +3,99 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/txt_order_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:textColor="?android:textColorPrimary"
-        android:textSize="20sp"
-        android:text="20:18 13.11.2021"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/txt_order_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Price: 12$"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/txt_order_date"
-        app:layout_constraintTop_toBottomOf="@+id/txt_order_date"/>
-    <TextView
-        android:id="@+id/txt_order_status"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="Status: Ready"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/txt_order_date"
-        app:layout_constraintTop_toBottomOf="@+id/txt_order_price"/>
-    <View
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#8C8C8C"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_order_status"/>
-
-    <ImageView
-        android:id="@+id/img_order_product_image"
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:scaleType="centerCrop"
-        android:layout_marginTop="20dp"
-        tools:src="@tools:sample/backgrounds/scenic"
-        app:layout_constraintStart_toStartOf="@+id/txt_order_date"
-        app:layout_constraintTop_toBottomOf="@+id/txt_order_status"
-        />
-
-    <TextView
-        android:id="@+id/txt_order_product_name"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="Hawaiian Pizza"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="@+id/img_order_product_image"
-        app:layout_constraintStart_toEndOf="@+id/img_order_product_image"
-        app:layout_constraintTop_toTopOf="@+id/img_order_product_image" />
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="10dp"
+        android:background="#8C8C8C"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_order_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="20dp"
+                android:textColor="?android:textColorPrimary"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:text="20:18 13.11.2021" />
+
+            <TextView
+                android:id="@+id/txt_order_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:text="Price: 12$"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/txt_order_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:textColor="?android:textColorPrimary"
+                android:text="Status: Ready"
+                android:textSize="16sp"/>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#8C8C8C" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:id="@+id/img_order_product_image"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:scaleType="centerCrop"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    tools:src="@tools:sample/backgrounds/scenic" />
+
+                <TextView
+                    android:id="@+id/txt_order_product_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:textColor="?android:textColorPrimary"
+                    android:text="Hawaiian Pizza"
+
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+    <Space
+        android:layout_width="wrap_content"
+        android:layout_height="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

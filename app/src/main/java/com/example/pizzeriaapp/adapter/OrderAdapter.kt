@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pizzeriaapp.R
@@ -27,10 +28,9 @@ class OrderAdapter (private val orderList : ArrayList<Order>) : RecyclerView.Ada
         holder.orderStatus.text = currentItem.status
         holder.orderProductName.text = currentItem.pizzaName
         Glide.with(holder.context)
-            .load(currentItem.PizzaPhoto)
+            .load(currentItem.pizzaPhoto)
             .error(R.drawable.ic_baseline_local_pizza_24)
             .into(holder.orderProductImage)
-
     }
 
     override fun getItemCount(): Int {
