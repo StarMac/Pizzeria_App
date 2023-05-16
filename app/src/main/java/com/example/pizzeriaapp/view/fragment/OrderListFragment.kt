@@ -36,7 +36,7 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(FragmentOrderLi
 
     private fun getOrderData() {
         databaseReference = FirebaseDatabase.getInstance().getReference("Order")
-        val queryDatabase = databaseReference.orderByChild("uid").equalTo(auth.currentUser!!.uid)
+        val queryDatabase = databaseReference.orderByChild("uid").equalTo(auth.currentUser!!.uid) //TODO Отсортировать ещё по времени, а не только по uid
         queryDatabase.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if(snapshot.exists()){

@@ -45,7 +45,7 @@ class ProductAdapter (private val productList : ArrayList<Pizza>) : RecyclerView
             val sdf = SimpleDateFormat("dd MM yyyy HH:mm:ss")
             val calendar = Calendar.getInstance()
             val orderDate = sdf.format(calendar.time)
-            val order = Order(orderDate,currentItem.name,currentItem.photo,"Status: Waiting",currentItem.price + " uah",auth.currentUser!!.uid)
+            val order = Order(orderDate,currentItem.name,currentItem.photo,"Waiting",currentItem.price + " uah",auth.currentUser!!.uid)
             orderDatabaseRef.child(order.time + " " + order.uid).setValue(order)
         }
     }
