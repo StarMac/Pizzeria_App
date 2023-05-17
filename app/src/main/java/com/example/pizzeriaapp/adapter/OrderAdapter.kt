@@ -1,17 +1,17 @@
 package com.example.pizzeriaapp.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pizzeriaapp.R
 import com.example.pizzeriaapp.model.Order
 
-class OrderAdapter (private val orderList : ArrayList<Order>) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>(){
+class OrderAdapter (private var orderList : List<Order>) : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): OrderViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(
@@ -23,26 +23,35 @@ class OrderAdapter (private val orderList : ArrayList<Order>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: OrderViewHolder, position: Int) {
         val currentItem = orderList[position]
 
-        holder.orderDate.text = currentItem.time
-        holder.orderPrice.text = currentItem.price
-        holder.orderStatus.text = currentItem.status
-        holder.orderProductName.text = currentItem.pizzaName
-        Glide.with(holder.context)
-            .load(currentItem.pizzaPhoto)
-            .error(R.drawable.ic_baseline_local_pizza_24)
-            .into(holder.orderProductImage)
+        holder.bind(currentItem)
     }
 
     override fun getItemCount(): Int {
         return orderList.size
     }
 
+    fun updateOrders(newOrderList: List<Order>) {
+        orderList = newOrderList
+        notifyDataSetChanged()
+    }
+
     class OrderViewHolder (itemView : View) : RecyclerView.ViewHolder(itemView){
-        val context = itemView.context
-        val orderDate : TextView = itemView.findViewById(R.id.txt_order_date)
-        val orderPrice : TextView = itemView.findViewById(R.id.txt_order_price)
-        val orderStatus : TextView = itemView.findViewById(R.id.txt_order_status)
-        val orderProductName : TextView = itemView.findViewById(R.id.txt_order_product_name)
-        val orderProductImage : ImageView = itemView.findViewById(R.id.img_order_product_image)
+        private val context: Context = itemView.context
+        private val orderDate: TextView = itemView.findViewById(R.id.txt_order_date)
+        private val orderPrice: TextView = itemView.findViewById(R.id.txt_order_price)
+        private val orderStatus: TextView = itemView.findViewById(R.id.txt_order_status)
+        private val orderProductName: TextView = itemView.findViewById(R.id.txt_order_product_name)
+        private val orderProductImage: ImageView = itemView.findViewById(R.id.img_order_product_image)
+
+        fun bind(order: Order) {
+            orderDate.text = order.time
+            orderPrice.text = order.price
+            orderStatus.text = order.status
+            orderProductName.text = order.pizzaName
+            Glide.with(context)
+                .load(order.pizzaPhoto)
+                .error(R.drawable.ic_baseline_local_pizza_24)
+                .into(orderProductImage)
+        }
     }
 }
