@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
@@ -61,36 +62,19 @@ class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter
                 .into(productPhoto)
             productAddToCartButton.setOnClickListener {
                 // TODO: Handle add to cart button click
-                val databaseReference: DatabaseReference = FirebaseDatabase.getInstance().getReference("Order")
+                val databaseReference = Firebase.firestore.collection("Order")
                 val auth: FirebaseAuth = Firebase.auth
                 val orderItem = OrderItem(pizzaId = itemId.toString(), pizzaName = item.name, quantity = 1, pizzaPhoto = item.photo) // Replace "pizzaId" with actual pizza id
                 val orderItem2 = OrderItem(pizzaId = "testId", pizzaName = item.name, quantity = 2, pizzaPhoto = item.photo) // Replace "pizzaId" with actual pizza id
                 val order = Order(
-                    id = databaseReference.push().key,
+                    id = databaseReference.document().id,
                     clientUid = auth.currentUser!!.uid,
                     items = listOf(orderItem, orderItem2),
                     totalPrice = 10, // replace this with actual total price
                     status = "В обработке",
                     creationTimestamp = System.currentTimeMillis()
                 )
-                val orderId = databaseReference.push().key
-                if (orderId != null) {
-                    databaseReference.child(orderId).setValue(order)
-                }
-//                val orderDatabaseRef: DatabaseReference = Firebase.database.getReference("Order")
-//                val auth = Firebase.auth
-//                val sdf = SimpleDateFormat("dd MM yyyy HH:mm:ss")
-//                val calendar = Calendar.getInstance()
-//                val orderDate = sdf.format(calendar.time)
-//                val order = Order(
-//                    orderDate,
-//                    item.name,
-//                    item.photo,
-//                    "Waiting",
-//                    item.price + " uah",
-//                    auth.currentUser!!.uid
-//                )
-//                orderDatabaseRef.child(order.time + " " + order.clientUid).setValue(order)
+                databaseReference.add(order)
             }
         }
     }

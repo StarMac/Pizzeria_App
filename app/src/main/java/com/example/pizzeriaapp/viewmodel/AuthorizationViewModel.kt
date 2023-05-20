@@ -16,11 +16,14 @@ import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
 class AuthorizationViewModel (application: Application) : AndroidViewModel(application) {
     private val auth: FirebaseAuth = Firebase.auth
-    private val userDatabaseRef: DatabaseReference = Firebase.database.getReference("User")
+    private val userCollectionRef: CollectionReference = FirebaseFirestore.getInstance().collection("User")
+
 
     private val _googleSignInResult = MutableLiveData<Boolean>()
     val googleSignInResult: LiveData<Boolean> get() = _googleSignInResult
@@ -31,7 +34,7 @@ class AuthorizationViewModel (application: Application) : AndroidViewModel(appli
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     val newUser = User(user?.uid, name, user!!.email, "Client")
-                    userDatabaseRef.child(user.uid).setValue(newUser)
+                    userCollectionRef.document(user.uid).set(newUser)
                     _googleSignInResult.value = true
                     Log.d(TAG, "Google sign should be success")
                 } else {
@@ -59,7 +62,7 @@ class AuthorizationViewModel (application: Application) : AndroidViewModel(appli
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     val newUser = User(user?.uid, user?.displayName, user!!.email, "Client")
-                    userDatabaseRef.child(user.uid).setValue(newUser)
+                    userCollectionRef.document(user.uid).set(newUser)
                     _googleSignInResult.value = true
                 } else {
                     _googleSignInResult.value = false

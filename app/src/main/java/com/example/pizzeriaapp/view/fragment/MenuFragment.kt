@@ -30,7 +30,6 @@ class MenuFragment : BaseFragment<FragmentMenuBinding>(FragmentMenuBinding::infl
         menuViewModel.menuLiveData.observe(viewLifecycleOwner) { products ->
             menuAdapter.updateProducts(products)
         }
-
         menuViewModel.loadMenu()
     }
 }
