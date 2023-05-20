@@ -10,7 +10,6 @@ import com.example.pizzeriaapp.model.Order
 import com.example.pizzeriaapp.model.Pizza
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -55,7 +54,7 @@ class OrderListViewModel (application: Application) : AndroidViewModel(applicati
                 return@addSnapshotListener
             }
 
-            if (snapshot != null && !snapshot.isEmpty) {
+            if (snapshot != null) {
                 val ordersList = snapshot.toObjects(Order::class.java)
                 _ordersLiveData.value = ordersList
             } else {
