@@ -82,10 +82,14 @@ class AuthorizationActivity :
         } else if (binding.passwordEditText.text.toString() != binding.confirmPasswordEditText.text.toString()) {
             binding.confirmPasswordEditText.error = "Passwords don't match"
             binding.confirmPasswordEditText.requestFocus()
+        } else if (TextUtils.isEmpty(binding.nameEditText.text.toString())) {
+            binding.nameEditText.error = "Name cannot be empty"
+            binding.nameEditText.requestFocus()
         } else {
             val email = binding.emailEditText.text.toString().trim()
             val password = binding.passwordEditText.text.toString().trim()
-            viewModel.signUpWithEmail(email, password)
+            val name = binding.nameEditText.text.toString().trim()
+            viewModel.signUpWithEmail(email, password, name)
         }
     }
 
@@ -126,8 +130,10 @@ class AuthorizationActivity :
         binding.emailEditText.setText("")
         binding.passwordEditText.setText("")
         binding.confirmPasswordEditText.setText("")
+        binding.nameEditText.setText("")
         binding.signInTextButton.visibility = View.GONE
         binding.repeatPasswordTextInputLayout.visibility = View.GONE
+        binding.nameTextInputLayout.visibility = View.GONE
         binding.signUpButton.visibility = View.GONE
         binding.signUpTextButton.visibility = View.VISIBLE
         binding.forgotPasswordTextButton.visibility = View.VISIBLE
@@ -140,8 +146,10 @@ class AuthorizationActivity :
         binding.emailEditText.setText("")
         binding.passwordEditText.setText("")
         binding.confirmPasswordEditText.setText("")
+        binding.nameEditText.setText("")
         binding.signInTextButton.visibility = View.VISIBLE
         binding.repeatPasswordTextInputLayout.visibility = View.VISIBLE
+        binding.nameTextInputLayout.visibility = View.VISIBLE
         binding.signUpButton.visibility = View.VISIBLE
         binding.signUpTextButton.visibility = View.GONE
         binding.forgotPasswordTextButton.visibility = View.GONE

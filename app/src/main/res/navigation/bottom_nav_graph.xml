@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav_graph"
-    app:startDestination="@+id/navigation_products">
+    app:startDestination="@+id/navigation_menu">
 
     <fragment
-        android:id="@+id/navigation_products"
-        android:name="com.example.pizzeriaapp.view.fragment.ProductsFragment"
-        android:label="@string/title_products"
-        tools:layout="@layout/fragment_products" />
+        android:id="@+id/navigation_menu"
+        android:name="com.example.pizzeriaapp.view.fragment.MenuFragment"
+        android:label="@string/title_menu"
+        tools:layout="@layout/fragment_menu" />
 
     <fragment
         android:id="@+id/navigation_restaurants"
@@ -24,8 +24,8 @@
         tools:layout="@layout/fragment_order_list" />
 
     <fragment
-        android:id="@+id/navigation_menu"
-        android:name="com.example.pizzeriaapp.view.fragment.MenuFragment"
-        android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
+        android:id="@+id/navigation_options"
+        android:name="com.example.pizzeriaapp.view.fragment.OptionsFragment"
+        android:label="@string/title_options"
+        tools:layout="@layout/fragment_options" />
 </navigation>

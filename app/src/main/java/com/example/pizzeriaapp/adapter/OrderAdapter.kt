@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -40,18 +41,37 @@ class OrderAdapter (private var orderList : List<Order>) : RecyclerView.Adapter<
         private val orderDate: TextView = itemView.findViewById(R.id.txt_order_date)
         private val orderPrice: TextView = itemView.findViewById(R.id.txt_order_price)
         private val orderStatus: TextView = itemView.findViewById(R.id.txt_order_status)
-        private val orderProductName: TextView = itemView.findViewById(R.id.txt_order_product_name)
-        private val orderProductImage: ImageView = itemView.findViewById(R.id.img_order_product_image)
+        private val orderProductsContainer: LinearLayout = itemView.findViewById(R.id.layout_order_products_container)
 
         fun bind(order: Order) {
-            orderDate.text = order.time
-            orderPrice.text = order.price
+            orderDate.text = order.creationTimestamp.toString()
+            orderPrice.text = order.totalPrice.toString()
             orderStatus.text = order.status
-            orderProductName.text = order.pizzaName
-            Glide.with(context)
-                .load(order.pizzaPhoto)
-                .error(R.drawable.ic_baseline_local_pizza_24)
-                .into(orderProductImage)
+
+
+            // Очистить предыдущие вьюшки продуктов, если таковые имеются
+            orderProductsContainer.removeAllViews()
+
+            // Добавить вьюшку для каждого продукта в заказе
+            order.items?.forEach { orderItem ->
+                // создание представления разделителя из xml-ресурса
+                val dividerView = LayoutInflater.from(context).inflate(R.layout.divider_view, orderProductsContainer, false)
+                // добавление представления разделителя в LinearLayout перед каждым элементом
+                orderProductsContainer.addView(dividerView)
+
+                val productView = LayoutInflater.from(context).inflate(R.layout.product_order_item, orderProductsContainer, false)
+
+                val productName: TextView = productView.findViewById(R.id.txt_order_product_name)
+                val productImage: ImageView = productView.findViewById(R.id.img_order_product_image)
+
+                productName.text = orderItem.pizzaName
+                Glide.with(context)
+                    .load(orderItem.pizzaPhoto)
+                    .error(R.drawable.ic_baseline_local_pizza_24)
+                    .into(productImage)
+
+                orderProductsContainer.addView(productView)
+            }
         }
     }
 }

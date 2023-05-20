@@ -17,10 +17,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
     private fun initNavigation(){
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_products,
+            R.id.navigation_menu,
             R.id.navigation_restaurants,
             R.id.navigation_orders,
-            R.id.navigation_menu
+            R.id.navigation_options
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)
         binding.navView.setupWithNavController(navController)

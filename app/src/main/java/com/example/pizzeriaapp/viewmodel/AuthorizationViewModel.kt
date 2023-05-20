@@ -25,14 +25,15 @@ class AuthorizationViewModel (application: Application) : AndroidViewModel(appli
     private val _googleSignInResult = MutableLiveData<Boolean>()
     val googleSignInResult: LiveData<Boolean> get() = _googleSignInResult
 
-    fun signUpWithEmail(email: String, password: String) {
+    fun signUpWithEmail(email: String, password: String, name: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    val newUser = User(user!!.email)
+                    val newUser = User(user?.uid, name, user!!.email, "Client")
                     userDatabaseRef.child(user.uid).setValue(newUser)
                     _googleSignInResult.value = true
+                    Log.d(TAG, "Google sign should be success")
                 } else {
                     _googleSignInResult.value = false
                 }
@@ -57,7 +58,7 @@ class AuthorizationViewModel (application: Application) : AndroidViewModel(appli
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     val user = auth.currentUser
-                    val newUser = User(user!!.email)
+                    val newUser = User(user?.uid, user?.displayName, user!!.email, "Client")
                     userDatabaseRef.child(user.uid).setValue(newUser)
                     _googleSignInResult.value = true
                 } else {

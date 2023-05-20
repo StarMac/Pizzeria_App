@@ -30,7 +30,5 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(FragmentOrderLi
         orderListViewModel.ordersLiveData.observe(viewLifecycleOwner) { orderList ->
             orderAdapter.updateOrders(orderList)
         }
-
-        orderListViewModel.loadOrders()
     }
 }

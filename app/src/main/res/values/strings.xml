@@ -2,8 +2,8 @@
     <string name="app_name">Pizzeria App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_products">Products</string>
     <string name="title_menu">Menu</string>
+    <string name="title_options">Options</string>
     <string name="title_orders">Orders</string>
     <string name="title_activity_authorization">AuthorizationActivity</string>
     <!-- Strings used for fragments for navigation -->
@@ -24,8 +24,9 @@
     <string name="google_image_button">Google image button</string>
     <string name="sign_out">Sign Out</string>
     <string name="no_orders">You haven\'t placed any orders yet</string>
-    <string name="products">Products</string>
-    <string name="orders">Orders</string>
     <string name="menu">Menu</string>
+    <string name="orders">Orders</string>
+    <string name="options">Options</string>
     <string name="restaurants">Restaurants</string>
+    <string name="name">Name</string>
 </resources>
