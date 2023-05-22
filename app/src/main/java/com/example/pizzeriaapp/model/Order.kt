@@ -13,5 +13,6 @@ data class OrderItem(
     val pizzaId: String? = null, // Id пиццы
     val pizzaName: String? = null, // Название пиццы
     val pizzaPhoto: String? = null, // Изображение пиццы
+    val pizzaPrice: Int? = null, // Цена пиццы
     val quantity: Int? = null // Количество пиццы
 )

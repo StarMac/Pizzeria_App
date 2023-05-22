@@ -6,9 +6,9 @@
         android:title="@string/menu"/>
 
     <item
-        android:id="@+id/navigation_restaurants"
-        android:icon="@drawable/ic_baseline_restaurant_24"
-        android:title="@string/restaurants"/>
+        android:id="@+id/navigation_cart"
+        android:icon="@drawable/ic_baseline_shopping_cart_24"
+        android:title="@string/cart"/>
 
     <item
         android:id="@+id/navigation_orders"

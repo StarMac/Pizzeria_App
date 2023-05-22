@@ -1,6 +1,7 @@
 package com.example.pizzeriaapp.adapter
 
 import android.app.AlertDialog
+import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.*
@@ -8,10 +9,14 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pizzeriaapp.R
+import com.example.pizzeriaapp.model.OrderItem
 import com.example.pizzeriaapp.model.Pizza
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 
 class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter<MenuAdapter.MenuViewHolder>() {
@@ -49,7 +54,7 @@ class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter
         fun bind(item: Pizza) {
             productName.text = item.name
             productDesc.text = item.description
-            productPrice.text = item.price
+            productPrice.text = item.price.toString()
             Glide.with(context)
                 .load(item.photo)
                 .error(R.drawable.ic_baseline_local_pizza_24)
@@ -71,18 +76,23 @@ class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter
 
                 pizzaName.text = item.name
                 pizzaDesc.text = item.description
-                pizzaTotalPrice.text = item.price
+                pizzaTotalPrice.text = item.price.toString()
+                var totalPrice = item.price!!
 
                 decreaseButton.setOnClickListener {
                     val count = quantity.text.toString().toInt()
                     if (count > 1) {
                         quantity.text = (count - 1).toString()
+                        totalPrice -= item.price
+                        pizzaTotalPrice.text = totalPrice.toString()
                     }
                 }
 
                 increaseButton.setOnClickListener {
                     val count = quantity.text.toString().toInt()
                     quantity.text = (count + 1).toString()
+                    totalPrice += item.price
+                    pizzaTotalPrice.text = totalPrice.toString()
                 }
 
                 val builder = AlertDialog.Builder(context).setView(dialogView)
@@ -93,6 +103,31 @@ class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter
                 }
 
                 addToCartButton.setOnClickListener {
+                    val db = FirebaseFirestore.getInstance()
+                    val pizzaId = item.id // id пиццы, которую пользователь хочет добавить в корзину
+                    val quantityToAdd = quantity.text.toString().toInt() // количество пиццы, которое пользователь хочет добавить
+
+                    val preOrderRef = db.collection("User")
+                        .document(FirebaseAuth.getInstance().currentUser?.uid!!)
+                        .collection("PreOrder")
+                        .document(pizzaId!!) // Используем id пиццы в качестве id документа
+
+                    preOrderRef.get().addOnSuccessListener { documentSnapshot ->
+                        if (documentSnapshot.exists()) {
+                            // Если документ уже существует, то увеличиваем количество пиццы
+                            val currentQuantity = documentSnapshot.getLong("quantity")?.toInt() ?: 0
+                            preOrderRef.update("quantity", currentQuantity + quantityToAdd)
+                            Toast.makeText(context, "Quantity updated!", Toast.LENGTH_SHORT).show()
+                        } else {
+                            // Если документ не существует, то создаем новый элемент предзаказа с этой пиццей
+                            val newPreOrderItem = OrderItem(pizzaId, item.name, item.photo, item.price, quantityToAdd)
+                            preOrderRef.set(newPreOrderItem)
+                            Toast.makeText(context, "Item added to cart!", Toast.LENGTH_SHORT).show()
+                        }
+                    }.addOnFailureListener { e ->
+                        // Обработка ошибок
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
                     alertDialog.dismiss()
                 }
 
@@ -109,24 +144,6 @@ class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter
                 }
 
                 alertDialog.show()
-
-//                val newOrderRef = Firebase.firestore.collection("Order").document()
-//                val auth: FirebaseAuth = Firebase.auth
-//                val orderItem = OrderItem(pizzaId = item.id, pizzaName = item.name, quantity = 1, pizzaPhoto = item.photo) // Replace "pizzaId" with actual pizza id
-//                val orderItem2 = OrderItem(pizzaId = item.id, pizzaName = item.name, quantity = 2, pizzaPhoto = item.photo) // Replace "pizzaId" with actual pizza id
-//                val order = Order(
-//                    id = newOrderRef.id,  // Set id from the new document reference
-//                    clientUid = auth.currentUser!!.uid,
-//                    items = listOf(orderItem, orderItem2),
-//                    totalPrice = 10, // replace this with actual total price
-//                    status = "В обработке",
-//                    creationTimestamp = System.currentTimeMillis()
-//                )
-//
-//                // Set the order to the new document reference
-//                newOrderRef.set(order)
-//                    .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-//                    .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
             }
         }
     }

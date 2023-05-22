@@ -18,7 +18,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>(ActivityMainBinding::infl
         val navController = findNavController(R.id.nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
             R.id.navigation_menu,
-            R.id.navigation_restaurants,
+            R.id.navigation_cart,
             R.id.navigation_orders,
             R.id.navigation_options
         ))

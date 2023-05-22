@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF">
@@ -25,13 +26,13 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Name of Pizza"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Name of Pizza"/>
 
             <TextView
                 android:id="@+id/txt_dialog_pizza_description"
@@ -40,12 +41,12 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:text="Tomatoes, Mushrooms, Pineapples, Mozzarella, Peperoni, Beacon "
                 android:textColor="?android:textColorPrimary"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txt_dialog_pizza_name" />
+                app:layout_constraintTop_toBottomOf="@id/txt_dialog_pizza_name"
+                tools:text="Tomatoes, Mushrooms, Pineapples, Mozzarella, Peperoni, Beacon "/>
 
             <TextView
                 android:id="@+id/txt_dialog_pizza_count"

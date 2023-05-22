@@ -27,6 +27,6 @@
     <string name="menu">Menu</string>
     <string name="orders">Orders</string>
     <string name="options">Options</string>
-    <string name="restaurants">Restaurants</string>
+    <string name="cart">Cart</string>
     <string name="name">Name</string>
 </resources>

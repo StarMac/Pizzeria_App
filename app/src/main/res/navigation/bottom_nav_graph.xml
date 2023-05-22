@@ -12,10 +12,10 @@
         tools:layout="@layout/fragment_menu" />
 
     <fragment
-        android:id="@+id/navigation_restaurants"
-        android:name="com.example.pizzeriaapp.view.fragment.RestaurantsFragment"
-        android:label="@string/restaurants"
-        tools:layout="@layout/fragment_restaurants" />
+        android:id="@+id/navigation_cart"
+        android:name="com.example.pizzeriaapp.view.fragment.CartFragment"
+        android:label="@string/cart"
+        tools:layout="@layout/fragment_cart" />
 
     <fragment
         android:id="@+id/navigation_orders"
