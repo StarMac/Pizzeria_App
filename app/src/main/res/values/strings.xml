@@ -29,4 +29,6 @@
     <string name="options">Options</string>
     <string name="cart">Cart</string>
     <string name="name">Name</string>
+    <string name="title_activity_employee">EmployeeActivity</string>
+    <string name="history">History</string>
 </resources>
