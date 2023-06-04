@@ -16,11 +16,10 @@ class EmployeeActivity : BaseActivity<ActivityEmployeeBinding>(ActivityEmployeeB
     }
 
     private fun initNavigation(){
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navController = findNavController(R.id.emp_nav_host_fragment)
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_menu,
-            R.id.navigation_cart,
-            R.id.navigation_orders,
+            R.id.navigation_emp_orders,
+            R.id.navigation_orders_history,
             R.id.navigation_options
         ))
         setupActionBarWithNavController(navController, appBarConfiguration)

@@ -2,14 +2,14 @@ package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzeriaapp.adapter.CartAdapter
 import com.example.pizzeriaapp.databinding.FragmentCartBinding
+import com.example.pizzeriaapp.model.DeliveryMethod
+import com.example.pizzeriaapp.model.PaymentMethod
 import com.example.pizzeriaapp.viewmodel.CartViewModel
-import com.example.pizzeriaapp.viewmodel.MenuViewModel
 
 class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::inflate) {
     private lateinit var cartRecyclerView: RecyclerView
@@ -40,17 +40,17 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
             }
         }
 
-        cartViewModel.orderPlacedLiveData.observe(viewLifecycleOwner, Observer { isOrderPlaced ->
+        cartViewModel.orderPlacedLiveData.observe(viewLifecycleOwner) { isOrderPlaced ->
             if (isOrderPlaced) {
                 // Очищаем список в адаптере
                 cartAdapter.updateList(null)
                 // Сбрасываем orderPlacedLiveData
                 cartViewModel.orderPlacedLiveData.value = false
             }
-        })
+        }
 
         cartViewModel.loadCart()
 
-        binding.orderButton.setOnClickListener{cartViewModel.placeOrder()}
+        binding.orderButton.setOnClickListener{cartViewModel.placeOrder(DeliveryMethod.PICK_UP, PaymentMethod.CASH_ON_DELIVERY, "")}
     }
 }

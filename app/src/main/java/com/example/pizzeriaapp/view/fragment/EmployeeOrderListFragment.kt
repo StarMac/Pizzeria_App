@@ -2,10 +2,14 @@ package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzeriaapp.adapter.EmployeeOrderAdapter
+import com.example.pizzeriaapp.adapter.OrderAdapter
 import com.example.pizzeriaapp.databinding.FragmentEmployeeOrderListBinding
 import com.example.pizzeriaapp.viewmodel.EmployeeOrderListViewModel
+import com.example.pizzeriaapp.viewmodel.OrderListViewModel
 
 class EmployeeOrderListFragment  : BaseFragment<FragmentEmployeeOrderListBinding>(FragmentEmployeeOrderListBinding::inflate) {
     private lateinit var empOrderRecyclerView: RecyclerView
@@ -18,15 +22,15 @@ class EmployeeOrderListFragment  : BaseFragment<FragmentEmployeeOrderListBinding
     }
 
     private fun init() {
-//        orderRecyclerView = binding.orderListRecycleView
-//        orderRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-//        orderAdapter = OrderAdapter(ArrayList())
-//        orderRecyclerView.adapter = orderAdapter
-//
-//        orderListViewModel = ViewModelProvider(this)[OrderListViewModel::class.java]
-//
-//        orderListViewModel.ordersLiveData.observe(viewLifecycleOwner) { orderList ->
-//            orderAdapter.updateOrders(orderList)
-//        }
+        empOrderRecyclerView = binding.orderListRecycleView
+        empOrderRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        empOrderAdapter = EmployeeOrderAdapter(ArrayList())
+        empOrderRecyclerView.adapter = empOrderAdapter
+
+        empOrderListViewModel = ViewModelProvider(this)[EmployeeOrderListViewModel::class.java]
+
+        empOrderListViewModel.ordersLiveData.observe(viewLifecycleOwner) { orderList ->
+            empOrderAdapter.updateOrders(orderList)
+        }
     }
 }

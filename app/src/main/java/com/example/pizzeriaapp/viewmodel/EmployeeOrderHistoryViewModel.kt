@@ -13,7 +13,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(application){
+class EmployeeOrderHistoryViewModel (application: Application) : AndroidViewModel(application){
 
     private val ordersCollection = Firebase.firestore.collection("Order")
     private val pizzasCollection = Firebase.firestore.collection("Pizza")
@@ -47,7 +47,7 @@ class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(a
     }
 
     private fun loadOrders() {
-        val query = ordersCollection //TODO отображать все заказы
+        val query = ordersCollection.whereEqualTo("clientName", "Star Mac").orderBy("creationTimestamp")
         query.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed.", e)

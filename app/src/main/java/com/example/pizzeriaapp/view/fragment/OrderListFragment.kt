@@ -22,7 +22,7 @@ class OrderListFragment : BaseFragment<FragmentOrderListBinding>(FragmentOrderLi
     private fun init() {
         orderRecyclerView = binding.orderListRecycleView
         orderRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        orderAdapter = OrderAdapter(ArrayList())
+        orderAdapter = OrderAdapter(ArrayList(),false)
         orderRecyclerView.adapter = orderAdapter
 
         orderListViewModel = ViewModelProvider(this)[OrderListViewModel::class.java]

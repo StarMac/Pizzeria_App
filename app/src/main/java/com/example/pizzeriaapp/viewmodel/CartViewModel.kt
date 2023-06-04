@@ -6,8 +6,7 @@ import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.pizzeriaapp.model.Order
-import com.example.pizzeriaapp.model.OrderItem
+import com.example.pizzeriaapp.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -82,7 +81,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         _totalPriceLiveData.value = total
     }
 
-    fun placeOrder() {
+    fun placeOrder(deliveryMethod: DeliveryMethod, paymentMethod: PaymentMethod, deliveryAddress: String) {
         // Получаем текущее значение OrderItem
         val currentOrderItems = cartLiveData.value
 
@@ -95,9 +94,13 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             val order = Order(
                 id = newOrderRef.id,
                 clientUid = FirebaseAuth.getInstance().currentUser?.uid,
+                clientName = FirebaseAuth.getInstance().currentUser?.displayName, //TODO отображать имя не через FirebaseAuth
                 items = currentOrderItems,
                 totalPrice = totalPrice,
-                status = "В обработке",
+                status = OrderStatus.PENDING.name,
+                deliveryMethod = deliveryMethod.name,
+                paymentMethod = paymentMethod.name,
+                deliveryAddress = deliveryAddress,
                 creationTimestamp = System.currentTimeMillis()
             )
 

@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/navigation_orders"
+        android:id="@+id/navigation_emp_orders"
         android:icon="@drawable/ic_baseline_order_long_24"
         android:title="@string/orders"/>
 
@@ -10,11 +10,6 @@
         android:id="@+id/navigation_orders_history"
         android:icon="@drawable/ic_baseline_access_time_24"
         android:title="@string/history"/>
-
-    <item
-        android:id="@+id/navigation_menu"
-        android:icon="@drawable/ic_baseline_local_pizza_24"
-        android:title="@string/menu"/>
 
     <item
         android:id="@+id/navigation_options"
