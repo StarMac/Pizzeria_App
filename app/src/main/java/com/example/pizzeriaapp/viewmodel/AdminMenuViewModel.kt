@@ -2,11 +2,13 @@ package com.example.pizzeriaapp.viewmodel
 
 import android.app.Application
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pizzeriaapp.model.Pizza
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -34,5 +36,24 @@ class AdminMenuViewModel (application: Application) : AndroidViewModel(applicati
                 Log.d(ContentValues.TAG, "Current data: null")
             }
         }
+    }
+
+    fun addNewProduct(name: String, price: Int, photoUrl: String, description: String) {
+        val db = FirebaseFirestore.getInstance()
+
+        // Create a new document reference and extract the ID.
+        val newPizzaRef = db.collection("Pizza").document()
+        val newPizzaId = newPizzaRef.id
+
+        val pizza = Pizza(newPizzaId, name, price, photoUrl, description)
+
+        // Now you can use the reference to set the data.
+        newPizzaRef.set(pizza)
+            .addOnSuccessListener {
+                Log.d(TAG, "DocumentSnapshot added with ID: $newPizzaId")
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error adding document", e)
+            }
     }
 }

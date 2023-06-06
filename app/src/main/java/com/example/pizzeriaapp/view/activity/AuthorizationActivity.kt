@@ -2,7 +2,7 @@ package com.example.pizzeriaapp.view.activity
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.pizzeriaapp.databinding.ActivityAuthorizationBinding
@@ -73,36 +73,40 @@ class AuthorizationActivity :
     }
 
     private fun signUpWithEmailCheck() {
-        if (TextUtils.isEmpty(binding.emailEditText.text.toString())) {
-            binding.emailEditText.error = "Email cannot be empty"
-            binding.emailEditText.requestFocus()
-        } else if (TextUtils.isEmpty(binding.passwordEditText.text.toString())) {
-            binding.passwordEditText.error = "Password cannot be empty"
-            binding.passwordEditText.requestFocus()
-        } else if (binding.passwordEditText.text.toString() != binding.confirmPasswordEditText.text.toString()) {
-            binding.confirmPasswordEditText.error = "Passwords don't match"
-            binding.confirmPasswordEditText.requestFocus()
-        } else if (TextUtils.isEmpty(binding.nameEditText.text.toString())) {
-            binding.nameEditText.error = "Name cannot be empty"
-            binding.nameEditText.requestFocus()
-        } else {
-            val email = binding.emailEditText.text.toString().trim()
-            val password = binding.passwordEditText.text.toString().trim()
-            val name = binding.nameEditText.text.toString().trim()
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+        val confirmPassword = binding.confirmPasswordEditText.text.toString().trim()
+        val name = binding.nameEditText.text.toString().trim()
+
+        if (email.isNotBlank() && password.isNotBlank() && confirmPassword.isNotBlank() && name.isNotBlank() && password == confirmPassword) {
             viewModel.signUpWithEmail(email, password, name)
+        } else {
+            if (email.isBlank()) binding.emailEditText.error = "Email cannot be empty"
+            if (password.isBlank()) binding.passwordEditText.error = "Password cannot be empty"
+            if (confirmPassword.isBlank()) binding.confirmPasswordEditText.error = "Confirm password cannot be empty"
+            else if (password != confirmPassword) binding.confirmPasswordEditText.error = "Passwords don't match"
+            if (name.isBlank()) binding.nameEditText.error = "Name cannot be empty"
         }
     }
 
     private fun signInWithEmailCheck() {
-        if (TextUtils.isEmpty(binding.emailEditText.text.toString())) {
+        val email = binding.emailEditText.text.toString().trim()
+        val password = binding.passwordEditText.text.toString().trim()
+
+        var fieldsFilled = true
+
+        if (email.isBlank()) {
             binding.emailEditText.error = "Email cannot be empty"
             binding.emailEditText.requestFocus()
-        } else if (TextUtils.isEmpty(binding.passwordEditText.text.toString())) {
+            fieldsFilled = false
+        }
+        if (password.isBlank()) {
             binding.passwordEditText.error = "Password cannot be empty"
             binding.passwordEditText.requestFocus()
-        } else {
-            val email = binding.emailEditText.text.toString().trim()
-            val password = binding.passwordEditText.text.toString().trim()
+            fieldsFilled = false
+        }
+
+        if (fieldsFilled) {
             viewModel.signInWithEmail(email, password)
         }
     }
@@ -121,9 +125,26 @@ class AuthorizationActivity :
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            val intent = Intent(applicationContext, AdminActivity::class.java)
-            intent.putExtra(EXTRA_NAME, user.displayName)
-            startActivity(intent)
+            viewModel.getUserRole(user.uid).observe(this) { role ->
+                when (role) {
+                    "Client" -> {
+                        val intent = Intent(applicationContext, MainActivity::class.java)
+                        startActivity(intent)
+                    }
+                    "Employee" -> {
+                        val intent = Intent(applicationContext, EmployeeActivity::class.java)
+                        startActivity(intent)
+                    }
+                    "Admin" -> {
+                        val intent = Intent(applicationContext, AdminActivity::class.java)
+                        startActivity(intent)
+                    }
+                    else -> {
+                        // User role not found, handle error here
+                        Log.d("AuthorizationActivity", "User role not found")
+                    }
+                }
+            }
         }
     }
     private fun showSignIn() {
@@ -160,6 +181,5 @@ class AuthorizationActivity :
 
     companion object {
         const val RC_SIGN_IN = 1001
-        const val EXTRA_NAME = "EXTRA NAME"
     }
 }

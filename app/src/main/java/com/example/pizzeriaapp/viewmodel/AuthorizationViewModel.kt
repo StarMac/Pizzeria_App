@@ -28,6 +28,23 @@ class AuthorizationViewModel (application: Application) : AndroidViewModel(appli
     private val _googleSignInResult = MutableLiveData<Boolean>()
     val googleSignInResult: LiveData<Boolean> get() = _googleSignInResult
 
+    fun getUserRole(uid: String): LiveData<String> {
+        val role = MutableLiveData<String>()
+
+        userCollectionRef.document(uid).get().addOnSuccessListener { document ->
+            if (document != null) {
+                val user = document.toObject(User::class.java)
+                role.value = user?.role
+            } else {
+                Log.d(TAG, "No such document")
+            }
+        }.addOnFailureListener { exception ->
+            Log.d(TAG, "get failed with ", exception)
+        }
+
+        return role
+    }
+
     fun signUpWithEmail(email: String, password: String, name: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
