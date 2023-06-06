@@ -32,4 +32,7 @@
     <string name="title_activity_employee">EmployeeActivity</string>
     <string name="history">History</string>
     <string name="title_order_history">Orders History</string>
+    <string name="ban_reason">Ban reason</string>
+    <string name="title_users">Users</string>
+    <string name="title_ban_list">BanList</string>
 </resources>

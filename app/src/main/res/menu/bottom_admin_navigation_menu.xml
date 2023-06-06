@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_admin_menu"
+        android:icon="@drawable/ic_baseline_local_pizza_24"
+        android:title="@string/title_menu"/>
+
+    <item
+        android:id="@+id/navigation_users"
+        android:icon="@drawable/ic_baseline_supervisor_account_24"
+        android:title="@string/title_users"/>
+
+    <item
+        android:id="@+id/navigation_ban_list"
+        android:icon="@drawable/ic_baseline_no_accounts_24"
+        android:title="@string/title_ban_list"/>
+
+    <item
+        android:id="@+id/navigation_options"
+        android:icon="@drawable/ic_baseline_menu_24"
+        android:title="@string/options"/>
+</menu>

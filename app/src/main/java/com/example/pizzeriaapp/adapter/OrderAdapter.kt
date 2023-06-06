@@ -107,9 +107,11 @@ class OrderAdapter(private var orderList: List<Order>, private var showUserInfo:
                     .inflate(R.layout.product_order_item, orderProductsContainer, false)
 
                 val productName: TextView = productView.findViewById(R.id.txt_order_product_name)
+                val productQuantity: TextView = productView.findViewById(R.id.txt_order_product_quantity)
                 val productImage: ImageView = productView.findViewById(R.id.img_order_product_image)
 
                 productName.text = orderItem.pizzaName
+                productQuantity.text = orderItem.quantity.toString()
                 Glide.with(context)
                     .load(orderItem.pizzaPhoto)
                     .error(R.drawable.ic_baseline_local_pizza_24)

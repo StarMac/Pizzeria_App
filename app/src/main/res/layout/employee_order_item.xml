@@ -22,6 +22,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+        <LinearLayout
+            android:id="@+id/layout_date_redo_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
             <TextView
                 android:id="@+id/txt_emp_order_date"
                 android:layout_width="wrap_content"
@@ -31,7 +39,22 @@
                 android:textColor="?android:textColorPrimary"
                 android:textStyle="bold"
                 android:textSize="20sp"
+                android:layout_weight="1"
                 android:text="20:18 13.11.2021" />
+
+            <ImageButton
+                android:id="@+id/btn_emp_order_redo"
+                android:layout_width="60dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"
+                android:layout_weight="0.1"
+                android:background="@drawable/round_button"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_baseline_replay_24" />
+        </LinearLayout>
 
             <TextView
                 android:id="@+id/txt_emp_order_user_name"
@@ -110,6 +133,7 @@
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp">
+
                 <ImageButton
                     android:id="@+id/btn_emp_order_ban_user"
                     android:layout_width="60dp"
@@ -138,6 +162,7 @@
                     android:layout_width="60dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="15dp"
                     android:layout_weight="1"

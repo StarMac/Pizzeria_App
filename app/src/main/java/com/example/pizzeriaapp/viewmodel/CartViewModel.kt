@@ -10,14 +10,15 @@ import com.example.pizzeriaapp.model.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
 class CartViewModel(application: Application) : AndroidViewModel(application) {
-    private val databaseReference = Firebase.firestore.collection("User")
+    private val databasePreOrderReference = Firebase.firestore.collection("User")
         .document(FirebaseAuth.getInstance().currentUser?.uid!!)
         .collection("PreOrder")
+    private val databaseUserReference = Firebase.firestore.collection("User")
+        .document(FirebaseAuth.getInstance().currentUser?.uid!!)
 
-    private val newOrderRef = Firebase.firestore.collection("Order").document()
+    private var newOrderRef = Firebase.firestore.collection("Order").document()
 
     private val _cartLiveData: MutableLiveData<List<OrderItem>> = MutableLiveData()
     private val _totalPriceLiveData: MutableLiveData<Int> = MutableLiveData()
@@ -27,7 +28,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     val totalPriceLiveData: LiveData<Int> get() = _totalPriceLiveData
 
     fun loadCart() {
-        databaseReference.addSnapshotListener { snapshot, e ->
+        databasePreOrderReference.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
@@ -61,7 +62,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     private fun updateItemQuantity(item: OrderItem, newQuantity: Int) {
-        val itemRef = databaseReference.document(item.pizzaId!!)
+        val itemRef = databasePreOrderReference.document(item.pizzaId!!)
         itemRef.update("quantity", newQuantity)
             .addOnSuccessListener {
                 Log.d(TAG, "Item quantity updated.")
@@ -113,7 +114,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
 
                     // После успешного добавления заказа очистите PreOrder для текущего пользователя
                     currentOrderItems.forEach { orderItem ->
-                        databaseReference.document(orderItem.pizzaId!!).delete()
+                        databasePreOrderReference.document(orderItem.pizzaId!!).delete()
                     }
 
                     // Обновляем данные корзины
@@ -121,6 +122,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
 
                     // Устанавливаем флаг что заказ успешно создан
                     orderPlacedLiveData.value = true
+                    newOrderRef = Firebase.firestore.collection("Order").document()
                 }
                 .addOnFailureListener { e ->
                     Log.w(TAG, "Error placing order", e)

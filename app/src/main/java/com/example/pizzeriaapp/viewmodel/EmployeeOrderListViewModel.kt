@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pizzeriaapp.model.Order
+import com.example.pizzeriaapp.model.OrderStatus
 import com.example.pizzeriaapp.model.Pizza
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -47,8 +48,7 @@ class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(a
     }
 
     private fun loadOrders() {
-        val query = ordersCollection //TODO отображать все заказы
-        query.addSnapshotListener { snapshot, e ->
+        ordersCollection.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(ContentValues.TAG, "Listen failed.", e)
                 return@addSnapshotListener
@@ -56,7 +56,9 @@ class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(a
 
             if (snapshot != null) {
                 val ordersList = snapshot.toObjects(Order::class.java)
-                _ordersLiveData.value = ordersList
+                // Здесь мы фильтруем список заказов, чтобы включить только заказы со статусом "DELIVERED" или "CANCELED"
+                val filteredOrders = ordersList.filter { it.status != OrderStatus.DELIVERED.name && it.status != OrderStatus.CANCELED.name }
+                _ordersLiveData.value = filteredOrders.sortedBy { it.creationTimestamp }
             } else {
                 Log.d(ContentValues.TAG, "Current data: null")
             }
