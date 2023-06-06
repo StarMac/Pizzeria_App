@@ -95,7 +95,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             val order = Order(
                 id = newOrderRef.id,
                 clientUid = FirebaseAuth.getInstance().currentUser?.uid,
-                clientName = FirebaseAuth.getInstance().currentUser?.displayName, //TODO отображать имя не через FirebaseAuth
+                clientName = FirebaseAuth.getInstance().currentUser?.displayName ?: "TestName", //TODO отображать имя не через FirebaseAuth
                 items = currentOrderItems,
                 totalPrice = totalPrice,
                 status = OrderStatus.PENDING.name,

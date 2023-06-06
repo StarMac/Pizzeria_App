@@ -16,6 +16,10 @@ class MenuViewModel (application: Application) : AndroidViewModel(application) {
 
     val menuLiveData: LiveData<List<Pizza>> get() = _menuLiveData
 
+    init {
+        loadMenu()
+    }
+
     fun preloadMenuToFireStore(){
         val db = Firebase.firestore
 

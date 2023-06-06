@@ -121,7 +121,7 @@ class AuthorizationActivity :
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            val intent = Intent(applicationContext, EmployeeActivity::class.java)
+            val intent = Intent(applicationContext, AdminActivity::class.java)
             intent.putExtra(EXTRA_NAME, user.displayName)
             startActivity(intent)
         }

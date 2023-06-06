@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pizzeriaapp.R
@@ -36,8 +37,11 @@ class OrderAdapter(private var orderList: List<Order>, private var showUserInfo:
     }
 
     fun updateOrders(newOrderList: List<Order>) {
+        val diffCallback = OrderDiffCallback(orderList, newOrderList)
+        val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         orderList = newOrderList
-        notifyDataSetChanged()
+        diffResult.dispatchUpdatesTo(this)
     }
 
     class OrderViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
