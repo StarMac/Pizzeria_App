@@ -17,34 +17,13 @@ import com.google.firebase.ktx.Firebase
 class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(application){
 
     private val ordersCollection = Firebase.firestore.collection("Order")
-    private val pizzasCollection = Firebase.firestore.collection("Pizza")
     private val auth: FirebaseAuth = Firebase.auth
-
-    private val _pizzasLiveData: MutableLiveData<List<Pizza>> = MutableLiveData()
-    val pizzasLiveData: LiveData<List<Pizza>> get() = _pizzasLiveData
 
     private val _ordersLiveData: MutableLiveData<List<Order>> = MutableLiveData()
     val ordersLiveData: LiveData<List<Order>> get() = _ordersLiveData
 
     init {
-        loadPizzas()
         loadOrders()
-    }
-
-    private fun loadPizzas() {
-        pizzasCollection.addSnapshotListener { snapshot, e ->
-            if (e != null) {
-                Log.w(ContentValues.TAG, "Listen failed.", e)
-                return@addSnapshotListener
-            }
-
-            if (snapshot != null && !snapshot.isEmpty) {
-                val pizzasList = snapshot.toObjects(Pizza::class.java)
-                _pizzasLiveData.value = pizzasList
-            } else {
-                Log.d(ContentValues.TAG, "Current data: null")
-            }
-        }
     }
 
     private fun loadOrders() {
