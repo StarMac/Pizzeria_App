@@ -65,12 +65,12 @@ class OrderAdapter(private var orderList: List<Order>, private var showUserInfo:
             orderDate.text = DateFormat.getDateTimeInstance().format(date)
             orderPrice.text = "Price: ${order.totalPrice.toString()}"
 
-            // преобразование строки в перечисление
+            // converting a string into an enum
             val status = order.statusFromString(order.status!!)
             val deliveryMethod = order.deliveryMethodFromString(order.deliveryMethod!!)
             val paymentMethod = order.paymentMethodFromString(order.paymentMethod!!)
 
-            // использование значений перечисления
+            // using enum values
             orderStatus.text = "Status: ${status?.status ?:"Unknown status"}"
             orderDeliveryMethod.text = "Delivery Method: ${deliveryMethod?.method ?: "Unknown method"}"
             orderPaymentMethod.text = "Payment Method: ${paymentMethod?.method ?: "Unknown method"}"
@@ -96,15 +96,15 @@ class OrderAdapter(private var orderList: List<Order>, private var showUserInfo:
                 orderDeliveryAddress.visibility = View.GONE
             }
 
-            // Очистить предыдущие вьюшки продуктов, если таковые имеются
+            // Clean out previous product inserts, if any
             orderProductsContainer.removeAllViews()
 
-            // Добавить вьюшку для каждого продукта в заказе
+            // Add a view for each product in the order
             order.items?.forEach { orderItem ->
-                // создание представления разделителя из xml-ресурса
+                // Creating a separator view from an xml resource
                 val dividerView = LayoutInflater.from(context)
                     .inflate(R.layout.divider_view, orderProductsContainer, false)
-                // добавление представления разделителя в LinearLayout перед каждым элементом
+                // adding a separator view to the LinearLayout before each element
                 orderProductsContainer.addView(dividerView)
 
                 val productView = LayoutInflater.from(context)

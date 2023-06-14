@@ -68,7 +68,7 @@ class AuthorizationViewModel(application: Application) : AndroidViewModel(applic
                     val user = auth.currentUser
                     isUserBanned(user?.uid) { isBanned ->
                         if (isBanned) {
-                            // Если пользователь заблокирован, выходим из учетной записи и выводим соответствующее сообщение
+                            // If the user is blocked, log out of the account and display the corresponding message
                             Toast.makeText(getApplication(), "Your account is banned", Toast.LENGTH_LONG).show()
                             auth.signOut()
                         } else {
@@ -90,11 +90,11 @@ class AuthorizationViewModel(application: Application) : AndroidViewModel(applic
                     val user = auth.currentUser
                     isUserBanned(user?.uid) { isBanned ->
                         if (isBanned) {
-                            // Если пользователь заблокирован, выходим из учетной записи и выводим соответствующее сообщение
+                            // If the user is blocked, log out of the account and display the corresponding message
                             Toast.makeText(getApplication(), "Your account is banned", Toast.LENGTH_LONG).show()
                             auth.signOut()
                         } else {
-                            // Если пользователь не заблокирован, продолжаем обычный процесс входа
+                            // If the user is not blocked, continue with the normal login process
                             userCollectionRef.document(user?.uid!!).get()
                                 .addOnSuccessListener { document ->
                                     if (document.exists()) {

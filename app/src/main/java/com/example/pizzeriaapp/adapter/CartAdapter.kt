@@ -60,17 +60,17 @@ class CartAdapter(private var productList: List<OrderItem>, private val cartView
                 .into(productPhoto)
 
             increaseButton.setOnClickListener {
-                // вызов функции в CartViewModel для увеличения количества
+                // Calling a function in CartViewModel to increase the number of
                 cartViewModel.increaseQuantity(item)
             }
 
             decreaseButton.setOnClickListener {
-                // вызов функции в CartViewModel для уменьшения количества
+                // Calling a function in CartViewModel to decrease the number of
                 cartViewModel.decreaseQuantity(item)
             }
 
             deleteButton.setOnClickListener {
-                // вызов функции в CartViewModel для удаления товара из корзины
+                // Calling a function in CartViewModel to remove an item from the cart
                 cartViewModel.removeItemFromCart(item)
             }
         }

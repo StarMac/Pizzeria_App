@@ -17,10 +17,10 @@ class OptionsFragment : BaseFragment<FragmentOptionsBinding>(FragmentOptionsBind
     private fun signOut() {
         Firebase.auth.signOut()
         val intent = Intent(requireActivity(), AuthorizationActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Убедитесь, что пользователь не сможет вернуться назад после выхода
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK // Make sure that the user cannot go back after exiting
         requireActivity().startActivity(intent)
-        requireActivity().overridePendingTransition(0, 0) // Отключает анимацию
+        requireActivity().overridePendingTransition(0, 0) // Turns off animation
         requireActivity().finish()
-        requireActivity().overridePendingTransition(0, 0) // Отключает анимацию
+        requireActivity().overridePendingTransition(0, 0) // Turns off animation
     }
 }

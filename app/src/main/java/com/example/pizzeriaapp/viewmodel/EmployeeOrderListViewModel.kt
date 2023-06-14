@@ -56,7 +56,6 @@ class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(a
 
             if (snapshot != null) {
                 val ordersList = snapshot.toObjects(Order::class.java)
-                // Здесь мы фильтруем список заказов, чтобы включить только заказы со статусом "DELIVERED" или "CANCELED"
                 val filteredOrders = ordersList.filter { it.status != OrderStatus.DELIVERED.name && it.status != OrderStatus.CANCELED.name }
                 _ordersLiveData.value = filteredOrders.sortedBy { it.creationTimestamp }
             } else {

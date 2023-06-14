@@ -126,28 +126,28 @@ class MenuAdapter (private var productList : List<Pizza>) : RecyclerView.Adapter
 
         private fun addToCart(item: Pizza, quantity : Int){
             val db = FirebaseFirestore.getInstance()
-            val pizzaId = item.id // id пиццы, которую пользователь хочет добавить в корзину
+            val pizzaId = item.id // The id of the pizza that the user wants to add to cart
 
             val preOrderRef = db.collection("User")
                 .document(FirebaseAuth.getInstance().currentUser?.uid!!)
                 .collection("PreOrder")
-                .document(pizzaId!!) // Используем id пиццы в качестве id документа
+                .document(pizzaId!!) // Use the pizza id as the document id
 
             preOrderRef.get().addOnSuccessListener { documentSnapshot ->
                 if (documentSnapshot.exists()) {
-                    // Если документ уже существует, то увеличиваем количество пиццы
+                    // If the document already exists, then increase the amount of pizza
                     val currentQuantity = documentSnapshot.getLong("quantity")?.toInt() ?: 0
                     preOrderRef.update("quantity", currentQuantity + quantity)
                     Toast.makeText(context, "Quantity updated!", Toast.LENGTH_SHORT).show()
                 } else {
-                    // Если документ не существует, то создаем новый элемент предзаказа с этой пиццей
+                    // If the document does not exist, then create a new pre-order item with this pizza
                     val newPreOrderItem =
                         OrderItem(pizzaId, item.name, item.photo, item.price, quantity)
                     preOrderRef.set(newPreOrderItem)
                     Toast.makeText(context, "Item added to cart!", Toast.LENGTH_SHORT).show()
                 }
             }.addOnFailureListener { e ->
-                // Обработка ошибок
+                // Error handling
                 Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
         }

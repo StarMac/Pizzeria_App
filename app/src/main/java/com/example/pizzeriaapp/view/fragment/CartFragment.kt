@@ -47,9 +47,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
 
         cartViewModel.orderPlacedLiveData.observe(viewLifecycleOwner) { isOrderPlaced ->
             if (isOrderPlaced) {
-                // Очищаем список в адаптере
+                // Clearing the list in the adapter
                 cartAdapter.updateList(null)
-                // Сбрасываем orderPlacedLiveData
+                // Resetting orderPlacedLiveData
                 cartViewModel.orderPlacedLiveData.value = false
             }
         }
@@ -59,9 +59,9 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                 val intent = Intent(activity, AuthorizationActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 requireActivity().startActivity(intent)
-                requireActivity().overridePendingTransition(0, 0) // Отключает анимацию
+                requireActivity().overridePendingTransition(0, 0) // Turns off animation
                 requireActivity().finish()
-                requireActivity().overridePendingTransition(0, 0) // Отключает анимацию
+                requireActivity().overridePendingTransition(0, 0) // Turns off animation
             }
         }
 

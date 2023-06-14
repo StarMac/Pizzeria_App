@@ -26,7 +26,7 @@ class AuthorizationActivity :
         init()
         setupViewModel()
         setupObservers()
-        binding.authContainer.visibility = View.GONE // Скрываем все вьюшки
+        binding.authContainer.visibility = View.GONE // Hiding All Views
     }
 
     private fun init() {
@@ -54,11 +54,11 @@ class AuthorizationActivity :
     private fun setupObservers() {
         viewModel.googleSignInResult.observe(this) { isSuccess ->
             if (isSuccess) {
-                // Вход с помощью Google успешен, обновите пользовательский интерфейс
+                // Login with Google is successful, update the user interface
                 val user = auth.currentUser
                 updateUI(user)
             } else {
-                // Вход с помощью Google не удался, обработайте ошибку
+                // Google login failed, process error
                 updateUI(null)
             }
         }
@@ -158,7 +158,7 @@ class AuthorizationActivity :
                 }
             }
         } else {
-            binding.authContainer.visibility = View.VISIBLE // Показываем вьюшки, если пользователь не авторизован
+            binding.authContainer.visibility = View.VISIBLE // Show views if user is not logged in
         }
     }
     private fun showSignIn() {
