@@ -10,7 +10,7 @@
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:label="Pizza to go"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PizzeriaApp"
@@ -26,13 +26,13 @@
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.activity.EmployeeActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".view.activity.AdminActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
     </application>
 
 </manifest>

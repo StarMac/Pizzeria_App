@@ -26,6 +26,7 @@ class AuthorizationActivity :
         init()
         setupViewModel()
         setupObservers()
+        binding.authContainer.visibility = View.GONE // Скрываем все вьюшки
     }
 
     private fun init() {
@@ -79,6 +80,14 @@ class AuthorizationActivity :
         val name = binding.nameEditText.text.toString().trim()
 
         if (email.isNotBlank() && password.isNotBlank() && confirmPassword.isNotBlank() && name.isNotBlank() && password == confirmPassword) {
+            if(!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+                binding.emailEditText.error = "Please enter a valid email address"
+                return
+            }
+            if(password.length < 6){
+                binding.passwordEditText.error = "Password must be at least 6 characters long"
+                return
+            }
             viewModel.signUpWithEmail(email, password, name)
         } else {
             if (email.isBlank()) binding.emailEditText.error = "Email cannot be empty"
@@ -97,6 +106,10 @@ class AuthorizationActivity :
 
         if (email.isBlank()) {
             binding.emailEditText.error = "Email cannot be empty"
+            binding.emailEditText.requestFocus()
+            fieldsFilled = false
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            binding.emailEditText.error = "Please enter a valid email address"
             binding.emailEditText.requestFocus()
             fieldsFilled = false
         }
@@ -126,25 +139,26 @@ class AuthorizationActivity :
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             viewModel.getUserRole(user.uid).observe(this) { role ->
-                when (role) {
-                    "Client" -> {
-                        val intent = Intent(applicationContext, MainActivity::class.java)
-                        startActivity(intent)
-                    }
-                    "Employee" -> {
-                        val intent = Intent(applicationContext, EmployeeActivity::class.java)
-                        startActivity(intent)
-                    }
-                    "Admin" -> {
-                        val intent = Intent(applicationContext, AdminActivity::class.java)
-                        startActivity(intent)
-                    }
+                val intent = when (role) {
+                    "Client" -> Intent(applicationContext, MainActivity::class.java)
+                    "Employee" -> Intent(applicationContext, EmployeeActivity::class.java)
+                    "Admin" -> Intent(applicationContext, AdminActivity::class.java)
                     else -> {
                         // User role not found, handle error here
                         Log.d("AuthorizationActivity", "User role not found")
+                        null
                     }
                 }
+                intent?.let {
+                    it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                    overridePendingTransition(0, 0) // Отключает анимацию
+                    finish()
+                    overridePendingTransition(0, 0) // Отключает анимацию
+                }
             }
+        } else {
+            binding.authContainer.visibility = View.VISIBLE // Показываем вьюшки, если пользователь не авторизован
         }
     }
     private fun showSignIn() {

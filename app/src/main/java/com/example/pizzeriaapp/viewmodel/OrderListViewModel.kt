@@ -56,7 +56,7 @@ class OrderListViewModel (application: Application) : AndroidViewModel(applicati
 
             if (snapshot != null) {
                 val ordersList = snapshot.toObjects(Order::class.java)
-                _ordersLiveData.value = ordersList
+                _ordersLiveData.value = ordersList.sortedByDescending { it.creationTimestamp }
             } else {
                 Log.d(ContentValues.TAG, "Current data: null")
             }

@@ -3,11 +3,13 @@ package com.example.pizzeriaapp.viewmodel
 import android.app.Application
 import android.content.ContentValues.TAG
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pizzeriaapp.model.*
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -17,15 +19,54 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         .collection("PreOrder")
     private val databaseUserReference = Firebase.firestore.collection("User")
         .document(FirebaseAuth.getInstance().currentUser?.uid!!)
-
+    private val databaseBanListCollection = Firebase.firestore.collection("BanList")
     private var newOrderRef = Firebase.firestore.collection("Order").document()
 
     private val _cartLiveData: MutableLiveData<List<OrderItem>> = MutableLiveData()
     private val _totalPriceLiveData: MutableLiveData<Int> = MutableLiveData()
+    private val _userNameLiveData: MutableLiveData<String> = MutableLiveData()
+    private val _isBannedLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    private val _userSignedOutLiveData: MutableLiveData<Boolean> = MutableLiveData()
+
     val orderPlacedLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     val cartLiveData: LiveData<List<OrderItem>> get() = _cartLiveData
     val totalPriceLiveData: LiveData<Int> get() = _totalPriceLiveData
+    val userNameLiveData: LiveData<String> get() = _userNameLiveData
+    val isBannedLiveData: LiveData<Boolean> get() = _isBannedLiveData
+    val userSignedOutLiveData: LiveData<Boolean> get() = _userSignedOutLiveData
+
+    init {
+        fetchUserName()
+    }
+
+    private fun fetchUserName() {
+        databaseUserReference.get()
+            .addOnSuccessListener { document ->
+                if (document != null) {
+                    val user = document.toObject(User::class.java)
+                    _userNameLiveData.value = user?.name
+                } else {
+                    Log.d(TAG, "No such document")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.d(TAG, "get failed with ", exception)
+            }
+    }
+
+    private fun checkUserBanStatus(callback: (Boolean) -> Unit) {
+        databaseBanListCollection.document(FirebaseAuth.getInstance().currentUser?.uid!!)
+            .get()
+            .addOnSuccessListener { documentSnapshot ->
+                callback.invoke(documentSnapshot.exists())
+            }
+            .addOnFailureListener { e ->
+                Log.d(TAG, "get failed with ", e)
+                callback.invoke(false)
+            }
+    }
+
 
     fun loadCart() {
         databasePreOrderReference.addSnapshotListener { snapshot, e ->
@@ -61,6 +102,19 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
+    fun removeItemFromCart(item: OrderItem) {
+        val itemRef = databasePreOrderReference.document(item.pizzaId!!)
+        itemRef.delete()
+            .addOnSuccessListener {
+                Log.d(TAG, "Item successfully deleted.")
+                // перезагружаем корзину
+                loadCart()
+            }
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Error deleting item", e)
+            }
+    }
+
     private fun updateItemQuantity(item: OrderItem, newQuantity: Int) {
         val itemRef = databasePreOrderReference.document(item.pizzaId!!)
         itemRef.update("quantity", newQuantity)
@@ -83,52 +137,62 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun placeOrder(deliveryMethod: DeliveryMethod, paymentMethod: PaymentMethod, deliveryAddress: String) {
-        // Получаем текущее значение OrderItem
         val currentOrderItems = cartLiveData.value
+        val userName = userNameLiveData.value ?: "Name Error"
 
-        // Проверяем, не пуст ли список заказов
-        if (currentOrderItems != null && currentOrderItems.isNotEmpty()) {
-            // Используем уже существующий метод для вычисления общей стоимости
-            val totalPrice = totalPriceLiveData.value ?: 0
+        checkUserBanStatus { isBanned ->
+            if (isBanned) {
+                Log.d(TAG, "User is banned. Can't place order.")
+                Toast.makeText(getApplication(), "Your account is banned", Toast.LENGTH_LONG).show()
+                Firebase.auth.signOut()
+                _userSignedOutLiveData.value = true
+                return@checkUserBanStatus
+            }
 
-            // Создаем новый объект Order
-            val order = Order(
-                id = newOrderRef.id,
-                clientUid = FirebaseAuth.getInstance().currentUser?.uid,
-                clientName = FirebaseAuth.getInstance().currentUser?.displayName ?: "TestName", //TODO отображать имя не через FirebaseAuth
-                items = currentOrderItems,
-                totalPrice = totalPrice,
-                status = OrderStatus.PENDING.name,
-                deliveryMethod = deliveryMethod.name,
-                paymentMethod = paymentMethod.name,
-                deliveryAddress = deliveryAddress,
-                creationTimestamp = System.currentTimeMillis()
-            )
+            // Проверяем, не пуст ли список заказов
+            if (currentOrderItems != null && currentOrderItems.isNotEmpty()) {
+                // Используем уже существующий метод для вычисления общей стоимости
+                val totalPrice = totalPriceLiveData.value ?: 0
 
-            // Добавляем заказ в Firebase
-            Firebase.firestore.collection("Order")
-                .document(order.id!!)
-                .set(order)
-                .addOnSuccessListener {
-                    Log.d(TAG, "Order successfully placed!")
+                // Создаем новый объект Order
+                val order = Order(
+                    id = newOrderRef.id,
+                    clientUid = FirebaseAuth.getInstance().currentUser?.uid,
+                    clientName = userName,
+                    items = currentOrderItems,
+                    totalPrice = totalPrice,
+                    status = OrderStatus.PENDING.name,
+                    deliveryMethod = deliveryMethod.name,
+                    paymentMethod = paymentMethod.name,
+                    deliveryAddress = deliveryAddress,
+                    creationTimestamp = System.currentTimeMillis()
+                )
 
-                    // После успешного добавления заказа очистите PreOrder для текущего пользователя
-                    currentOrderItems.forEach { orderItem ->
-                        databasePreOrderReference.document(orderItem.pizzaId!!).delete()
+                // Добавляем заказ в Firebase
+                Firebase.firestore.collection("Order")
+                    .document(order.id!!)
+                    .set(order)
+                    .addOnSuccessListener {
+                        Log.d(TAG, "Order successfully placed!")
+
+                        // После успешного добавления заказа очистите PreOrder для текущего пользователя
+                        currentOrderItems.forEach { orderItem ->
+                            databasePreOrderReference.document(orderItem.pizzaId!!).delete()
+                        }
+
+                        // Обновляем данные корзины
+                        loadCart()
+
+                        // Устанавливаем флаг что заказ успешно создан
+                        orderPlacedLiveData.value = true
+                        newOrderRef = Firebase.firestore.collection("Order").document()
                     }
-
-                    // Обновляем данные корзины
-                    loadCart()
-
-                    // Устанавливаем флаг что заказ успешно создан
-                    orderPlacedLiveData.value = true
-                    newOrderRef = Firebase.firestore.collection("Order").document()
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Error placing order", e)
-                }
-        } else {
-            Log.w(TAG, "Cart is empty. Can't place order.")
+                    .addOnFailureListener { e ->
+                        Log.w(TAG, "Error placing order", e)
+                    }
+            } else {
+                Log.w(TAG, "Cart is empty. Can't place order.")
+            }
         }
     }
 }

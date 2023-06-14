@@ -54,7 +54,7 @@ class AdminBanListAdapter (private var banList: List<BanListUser>) : RecyclerVie
         fun bind(bannedUser: BanListUser) {
             txtName.text = "User name: ${bannedUser.userName}"
             txtId.text = "User id: ${bannedUser.uid}"
-            txtBanReason.text = "User role: ${bannedUser.banReason}"
+            txtBanReason.text = "Ban reason: ${bannedUser.banReason}"
             btnUnblockUser.setOnClickListener {
                 showDialogUnblockUser(bannedUser)
             }

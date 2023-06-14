@@ -1,21 +1,17 @@
 package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pizzeriaapp.R
 import com.example.pizzeriaapp.adapter.AdminBanListAdapter
 import com.example.pizzeriaapp.databinding.FragmentAdminBanListBinding
-import com.example.pizzeriaapp.viewmodel.AdminBanListViewModel
+import com.example.pizzeriaapp.viewmodel.AdminUserListViewModel
 
 class AdminBanListFragment : BaseFragment<FragmentAdminBanListBinding>(FragmentAdminBanListBinding::inflate) {
     private lateinit var adminBanListRecyclerView: RecyclerView
-    private lateinit var adminBanListViewModel: AdminBanListViewModel
+    private lateinit var adminUserListViewModel: AdminUserListViewModel
     private lateinit var adminBanListAdapter: AdminBanListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -29,9 +25,9 @@ class AdminBanListFragment : BaseFragment<FragmentAdminBanListBinding>(FragmentA
         adminBanListAdapter = AdminBanListAdapter(ArrayList())
         adminBanListRecyclerView.adapter = adminBanListAdapter
 
-        adminBanListViewModel = ViewModelProvider(this)[AdminBanListViewModel::class.java]
+        adminUserListViewModel = ViewModelProvider(this)[AdminUserListViewModel::class.java]
 
-        adminBanListViewModel.bannedUsersLiveData.observe(viewLifecycleOwner) { bannedUsers ->
+        adminUserListViewModel.bannedUsersLiveData.observe(viewLifecycleOwner) { bannedUsers ->
             adminBanListAdapter.updateBanList(bannedUsers)
         }
     }

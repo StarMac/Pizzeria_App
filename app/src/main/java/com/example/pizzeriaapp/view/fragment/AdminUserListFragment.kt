@@ -31,7 +31,7 @@ class AdminUserListFragment : BaseFragment<FragmentAdminUserListBinding>(Fragmen
 
         adminUserListViewModel = ViewModelProvider(this)[AdminUserListViewModel::class.java]
 
-        adminUserListViewModel.usersLiveData.observe(viewLifecycleOwner) { users ->
+        adminUserListViewModel.activeUsersLiveData.observe(viewLifecycleOwner) { users ->
             adminUserAdapter.updateUsers(users)
         }
     }

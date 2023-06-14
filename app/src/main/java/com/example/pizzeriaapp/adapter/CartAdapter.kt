@@ -46,6 +46,7 @@ class CartAdapter(private var productList: List<OrderItem>, private val cartView
         private val productPhoto: ImageView = itemView.findViewById(R.id.img_cart_product_image)
         private val increaseButton: ImageButton = itemView.findViewById(R.id.btn_cart_increase)
         private val decreaseButton: ImageButton = itemView.findViewById(R.id.btn_cart_decrease)
+        private val deleteButton: ImageView = itemView.findViewById(R.id.btn_cart_delete)
 
         fun bind(item: OrderItem, cartViewModel: CartViewModel) {
             productName.text = item.pizzaName
@@ -66,6 +67,11 @@ class CartAdapter(private var productList: List<OrderItem>, private val cartView
             decreaseButton.setOnClickListener {
                 // вызов функции в CartViewModel для уменьшения количества
                 cartViewModel.decreaseQuantity(item)
+            }
+
+            deleteButton.setOnClickListener {
+                // вызов функции в CartViewModel для удаления товара из корзины
+                cartViewModel.removeItemFromCart(item)
             }
         }
     }
