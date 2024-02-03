@@ -1,14 +1,10 @@
 package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pizzeriaapp.R
 import com.example.pizzeriaapp.adapter.MenuAdapter
 import com.example.pizzeriaapp.databinding.FragmentMenuBinding
 import com.example.pizzeriaapp.viewmodel.MenuViewModel

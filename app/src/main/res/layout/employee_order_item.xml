@@ -2,7 +2,8 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
@@ -40,7 +41,7 @@
                 android:textStyle="bold"
                 android:textSize="20sp"
                 android:layout_weight="1"
-                android:text="20:18 13.11.2021" />
+                tools:text="20:18 13.11.2021" />
 
             <ImageButton
                 android:id="@+id/btn_emp_order_redo"
@@ -53,7 +54,8 @@
                 android:layout_weight="0.1"
                 android:background="@drawable/round_button"
                 android:scaleType="fitCenter"
-                android:src="@drawable/ic_baseline_replay_24" />
+                android:src="@drawable/ic_baseline_replay_24"
+                android:contentDescription="@string/redo_the_order_button" />
         </LinearLayout>
 
             <TextView
@@ -63,7 +65,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="User: David"
+                tools:text="User: David"
                 android:textSize="16sp" />
 
             <TextView
@@ -73,7 +75,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="User id: F0NO2"
+                tools:text="User id: F0NO2"
                 android:textSize="16sp" />
 
             <TextView
@@ -83,7 +85,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="Price: 12$"
+                tools:text="Price: 12$"
                 android:textSize="16sp"/>
 
             <TextView
@@ -93,7 +95,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="Status: Ready"
+                tools:text="Status: Ready"
                 android:textSize="16sp"/>
 
             <TextView
@@ -103,7 +105,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="Delivery Method: "
+                tools:text="Delivery Method: "
                 android:textSize="16sp"/>
 
             <TextView
@@ -113,7 +115,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="Payment Method: "
+                tools:text="Payment Method: "
                 android:textSize="16sp"/>
 
             <TextView
@@ -123,7 +125,7 @@
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="15dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="Delivery Address: "
+                tools:text="Delivery Address: "
                 android:textSize="16sp"/>
 
             <LinearLayout
@@ -144,7 +146,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_no_accounts_24" />
+                    android:src="@drawable/ic_baseline_no_accounts_24"
+                    android:contentDescription="@string/ban_user_button" />
                 <ImageButton
                     android:id="@+id/btn_emp_order_decline"
                     android:layout_width="60dp"
@@ -155,7 +158,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_block_24" />
+                    android:src="@drawable/ic_baseline_block_24"
+                    android:contentDescription="@string/cancel_Button" />
 
                 <ImageButton
                     android:id="@+id/btn_emp_order_change_status"
@@ -168,7 +172,8 @@
                     android:layout_weight="1"
                     android:background="@drawable/round_button"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_done_24" />
+                    android:src="@drawable/ic_baseline_done_24"
+                    android:contentDescription="@string/change_order_status_button" />
             </LinearLayout>
 
             <LinearLayout

@@ -14,7 +14,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         android:scaleType="centerCrop"
-        tools:src="@tools:sample/backgrounds/scenic" />
+        tools:src="@tools:sample/backgrounds/scenic"
+        android:contentDescription="@string/product_image" />
 
     <TextView
         android:id="@+id/txt_order_product_name"

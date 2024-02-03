@@ -8,16 +8,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pizzeriaapp.model.Order
 import com.example.pizzeriaapp.model.OrderStatus
-import com.example.pizzeriaapp.model.Pizza
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 class EmployeeOrderListViewModel (application: Application) : AndroidViewModel(application){
 
     private val ordersCollection = Firebase.firestore.collection("Order")
-    private val auth: FirebaseAuth = Firebase.auth
 
     private val _ordersLiveData: MutableLiveData<List<Order>> = MutableLiveData()
     val ordersLiveData: LiveData<List<Order>> get() = _ordersLiveData

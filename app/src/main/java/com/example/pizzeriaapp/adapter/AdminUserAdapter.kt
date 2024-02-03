@@ -1,24 +1,28 @@
 package com.example.pizzeriaapp.adapter
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
-import android.view.*
-import android.widget.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.pizzeriaapp.R
 import com.example.pizzeriaapp.model.BanListUser
-import com.example.pizzeriaapp.model.DeliveryMethod
-import com.example.pizzeriaapp.model.Order
 import com.example.pizzeriaapp.model.User
 import com.google.firebase.firestore.FirebaseFirestore
-import java.text.DateFormat
-import java.util.*
 
 class AdminUserAdapter (private var userList: List<User>) : RecyclerView.Adapter<AdminUserAdapter.AdminUserViewHolder>() {
 
@@ -57,6 +61,7 @@ class AdminUserAdapter (private var userList: List<User>) : RecyclerView.Adapter
         private val btnBanUser: ImageButton = itemView.findViewById(R.id.btn_admin_ban_user)
         private val btnChangeUserRole: ImageButton = itemView.findViewById(R.id.btn_admin_change_user_role)
 
+        @SuppressLint("SetTextI18n")
         fun bind(user: User) {
             txtEmail.text = user.email
             txtName.text = "User name: ${user.name}"
@@ -128,6 +133,7 @@ class AdminUserAdapter (private var userList: List<User>) : RecyclerView.Adapter
                 .addOnFailureListener { e -> Log.w(TAG, "Error updating user role", e) }
         }
 
+        @SuppressLint("SetTextI18n")
         private fun showDialogBlockUser(user : User) {
             val dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_block_user, null)
 

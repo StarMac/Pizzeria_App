@@ -7,11 +7,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.pizzeriaapp.model.BanListUser
-import com.example.pizzeriaapp.model.Order
-import com.example.pizzeriaapp.model.Pizza
 import com.example.pizzeriaapp.model.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
@@ -53,7 +49,7 @@ class AdminUserListViewModel (application: Application) : AndroidViewModel(appli
         }
     }
 
-    fun loadBanList() {
+    private fun loadBanList() {
         val query = banListCollection
         query.addSnapshotListener { snapshot, e ->
             if (e != null) {

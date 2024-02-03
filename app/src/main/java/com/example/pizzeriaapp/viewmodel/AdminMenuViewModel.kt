@@ -1,7 +1,6 @@
 package com.example.pizzeriaapp.viewmodel
 
 import android.app.Application
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
@@ -22,10 +21,10 @@ class AdminMenuViewModel (application: Application) : AndroidViewModel(applicati
         loadMenu()
     }
 
-    fun loadMenu() {
+    private fun loadMenu() {
         databaseReference.addSnapshotListener { snapshot, e ->
             if (e != null) {
-                Log.w(ContentValues.TAG, "Listen failed.", e)
+                Log.w(TAG, "Listen failed.", e)
                 return@addSnapshotListener
             }
 
@@ -33,7 +32,7 @@ class AdminMenuViewModel (application: Application) : AndroidViewModel(applicati
                 val menuList = snapshot.toObjects(Pizza::class.java)
                 _menuLiveData.value = menuList
             } else {
-                Log.d(ContentValues.TAG, "Current data: null")
+                Log.d(TAG, "Current data: null")
             }
         }
     }
@@ -47,7 +46,7 @@ class AdminMenuViewModel (application: Application) : AndroidViewModel(applicati
 
         val pizza = Pizza(newPizzaId, name, price, photoUrl, description)
 
-        // Now you can use the reference to set the data.
+        // Using the reference to set the data.
         newPizzaRef.set(pizza)
             .addOnSuccessListener {
                 Log.d(TAG, "DocumentSnapshot added with ID: $newPizzaId")

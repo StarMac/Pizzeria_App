@@ -35,7 +35,7 @@ class AuthorizationViewModel(application: Application) : AndroidViewModel(applic
         userCollectionRef.document(uid).get().addOnSuccessListener { document ->
             if (document != null) {
                 val user = document.toObject(User::class.java)
-                role.value = user?.role
+                role.value = user?.role!!
             } else {
                 Log.d(TAG, "No such document")
             }

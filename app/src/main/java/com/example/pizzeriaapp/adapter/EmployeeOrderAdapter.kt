@@ -1,23 +1,33 @@
 package com.example.pizzeriaapp.adapter
 
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.util.Log
-import android.view.*
-import android.widget.*
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.pizzeriaapp.R
-import com.example.pizzeriaapp.model.*
-import com.google.firebase.auth.FirebaseAuth
+import com.example.pizzeriaapp.model.BanListUser
+import com.example.pizzeriaapp.model.DeliveryMethod
+import com.example.pizzeriaapp.model.Order
+import com.example.pizzeriaapp.model.OrderStatus
 import com.google.firebase.firestore.FirebaseFirestore
 import java.text.DateFormat
-import java.util.*
+import java.util.Date
 
 class EmployeeOrderAdapter (private var orderList : List<Order>) : RecyclerView.Adapter<EmployeeOrderAdapter.EmployeeOrderViewHolder>(){
 
@@ -61,6 +71,7 @@ class EmployeeOrderAdapter (private var orderList : List<Order>) : RecyclerView.
         private val btnDeclineOrder: ImageButton = itemView.findViewById(R.id.btn_emp_order_decline)
         private val btnRedoOrder: ImageButton = itemView.findViewById(R.id.btn_emp_order_redo)
         private val btnChangeOrderStatus: ImageButton = itemView.findViewById(R.id.btn_emp_order_change_status)
+
         fun bind(order: Order) {
             btnBanUser.setOnClickListener {
                 showDialogBlockUser(order.clientUid!!, order.clientName!!) // Pass the User who made the order
@@ -339,8 +350,7 @@ class EmployeeOrderAdapter (private var orderList : List<Order>) : RecyclerView.
 
             val orderRef = db.collection("Order").document(order.id!!)
 
-            val currentStatus = order.statusFromString(order.status!!)
-            val nextStatus = when (currentStatus) {
+            val nextStatus = when (order.statusFromString(order.status!!)) {
                 OrderStatus.PENDING -> OrderStatus.PREPARING
                 OrderStatus.PREPARING -> if (order.deliveryMethodFromString(order.deliveryMethod!!) == DeliveryMethod.DELIVERY)
                     OrderStatus.DELIVERING

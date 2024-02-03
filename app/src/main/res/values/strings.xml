@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Pizzeria App</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_menu">Menu</string>
     <string name="title_options">Options</string>
@@ -35,4 +34,44 @@
     <string name="ban_reason">Ban reason</string>
     <string name="title_users">Users</string>
     <string name="title_ban_list">BanList</string>
+    <string name="unblock_user">Unblock user</string>
+    <string name="product_image">Product Image</string>
+    <string name="from">from</string>
+    <string name="uah">uah</string>
+    <string name="delete_Button">Delete</string>
+    <string name="edit_Button">Edit</string>
+    <string name="ban_user_button">Ban User Button</string>
+    <string name="change_user_role_button">Change user role Button</string>
+    <string name="decrease_button">decrease Button</string>
+    <string name="increase_button">increase Button</string>
+    <string name="cart_product_image">Cart product image</string>
+    <string name="cancel_Button">Cancel</string>
+    <string name="add_to_cart_Button">Add to Cart</string>
+    <string name="count">Count:</string>
+    <string name="confirm_Button">Confirm</string>
+    <string name="change_order_status_to_the_next_stage">Change order status to the next stage?</string>
+    <string name="change_a_user_role">Change a user role?</string>
+    <string name="client">Client</string>
+    <string name="employee">Employee</string>
+    <string name="admin">Admin</string>
+    <string name="delete_the_product">Delete the product?</string>
+    <string name="product_name">Product name</string>
+    <string name="product_description">Product description</string>
+    <string name="product_photo_url">Product photo URL</string>
+    <string name="product_price">Product price</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
+    <string name="redo_the_order">Redo the order?</string>
+    <string name="unblock_the_user">Unblock the user?</string>
+    <string name="redo_the_order_button">Redo the order Button</string>
+    <string name="change_order_status_button">Change order status Button</string>
+    <string name="your_cart_is_empty">Your cart is empty.</string>
+    <string name="total_price">Total Price:</string>
+    <string name="self_delivery">self-delivery</string>
+    <string name="delivery">Delivery</string>
+    <string name="cash">Cash</string>
+    <string name="card">Card</string>
+    <string name="address">Address</string>
+    <string name="order">Order</string>
+    <string name="add_new_product">Add new product</string>
 </resources>

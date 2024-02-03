@@ -20,36 +20,7 @@ class MenuViewModel (application: Application) : AndroidViewModel(application) {
         loadMenu()
     }
 
-    fun preloadMenuToFireStore(){
-        val db = Firebase.firestore
-
-        val newPizzaRef1 = db.collection("Pizza").document()
-        val hawaiianPizza = hashMapOf(
-            "id" to newPizzaRef1.id,
-            "name" to "Hawaiian Pizza",
-            "price" to 140,
-            "photo" to "https://www.jessicagavin.com/wp-content/uploads/2020/07/hawaiian-pizza-16-1200.jpg",
-            "description" to "mozzarella, pineapple, bacon, oregano, ounces, pizza sauce"
-        )
-        newPizzaRef1.set(hawaiianPizza)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-
-
-        val newPizzaRef2 = db.collection("Pizza").document()
-        val tomatoPizza = hashMapOf(
-            "id" to newPizzaRef2.id,
-            "name" to "Pizza With Tomatoes",
-            "price" to 130,
-            "photo" to "https://eclecticrecipes.com/wp-content/uploads/2011/10/zucchini-pizza.jpg",
-            "description" to "mozzarella, tomatoes, bacon, oregano, ounces, pizza sauce"
-        )
-        newPizzaRef2.set(tomatoPizza)
-            .addOnSuccessListener { Log.d(TAG, "DocumentSnapshot successfully written!") }
-            .addOnFailureListener { e -> Log.w(TAG, "Error writing document", e) }
-    }
-
-    fun loadMenu() {
+    private fun loadMenu() {
         databaseReference.addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)

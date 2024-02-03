@@ -6,10 +6,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzeriaapp.adapter.EmployeeOrderAdapter
-import com.example.pizzeriaapp.adapter.OrderAdapter
 import com.example.pizzeriaapp.databinding.FragmentEmployeeOrderListBinding
 import com.example.pizzeriaapp.viewmodel.EmployeeOrderListViewModel
-import com.example.pizzeriaapp.viewmodel.OrderListViewModel
 
 class EmployeeOrderListFragment  : BaseFragment<FragmentEmployeeOrderListBinding>(FragmentEmployeeOrderListBinding::inflate) {
     private lateinit var empOrderRecyclerView: RecyclerView

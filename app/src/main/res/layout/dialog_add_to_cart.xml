@@ -55,7 +55,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="10dp"
-                android:text="Count:"
+                android:text="@string/count"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -71,7 +71,7 @@
                 android:layout_marginStart="25dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="210 UAH"
+                tools:text="210 UAH"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -85,10 +85,11 @@
                 android:layout_height="30dp"
                 android:background="@drawable/round_button"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_baseline_deacrease_button_24"
+                android:src="@drawable/ic_baseline_decrease_button_24"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_dialog_pizza_count"
                 app:layout_constraintEnd_toStartOf="@+id/txt_dialog_quantity"
-                app:layout_constraintTop_toTopOf="@+id/txt_dialog_pizza_count" />
+                app:layout_constraintTop_toTopOf="@+id/txt_dialog_pizza_count"
+                android:contentDescription="@string/decrease_button" />
 
             <TextView
                 android:id="@+id/txt_dialog_quantity"
@@ -112,7 +113,8 @@
                 android:src="@drawable/ic_baseline_increase_button_24"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_dialog_pizza_count"
                 app:layout_constraintStart_toEndOf="@+id/txt_dialog_quantity"
-                app:layout_constraintTop_toTopOf="@+id/txt_dialog_pizza_count" />
+                app:layout_constraintTop_toTopOf="@+id/txt_dialog_pizza_count"
+                android:contentDescription="@string/increase_button" />
 
 
             <Button
@@ -122,7 +124,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Cancel"
+                android:text="@string/cancel_Button"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -136,7 +138,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Add to Cart"
+                android:text="@string/add_to_cart_Button"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

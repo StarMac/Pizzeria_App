@@ -3,8 +3,8 @@ package com.example.pizzeriaapp.view.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.pizzeriaapp.R
@@ -38,10 +38,14 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
         }
         cartViewModel.totalPriceLiveData.observe(viewLifecycleOwner) { totalPrice ->
             binding.totalPriceValue.text = totalPrice.toString()
-            if(totalPrice == 0) {
+            if(totalPrice == 0 || totalPrice == null) {
                 binding.cardView.visibility = View.GONE
+                binding.cartRecycleView.visibility = View.GONE
+                binding.cartIsEmptyTextView.visibility = View.VISIBLE
             }else{
                 binding.cardView.visibility = View.VISIBLE
+                binding.cartRecycleView.visibility = View.VISIBLE
+                binding.cartIsEmptyTextView.visibility = View.GONE
             }
         }
 
@@ -51,6 +55,11 @@ class CartFragment : BaseFragment<FragmentCartBinding>(FragmentCartBinding::infl
                 cartAdapter.updateList(null)
                 // Resetting orderPlacedLiveData
                 cartViewModel.orderPlacedLiveData.value = false
+
+                //Begin fragment transition to OrderFragment
+                val navHostFragment = requireActivity().supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                val navController = navHostFragment.navController
+                navController.navigate(R.id.navigation_orders)
             }
         }
 

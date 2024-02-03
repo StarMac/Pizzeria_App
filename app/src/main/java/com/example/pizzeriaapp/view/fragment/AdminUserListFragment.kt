@@ -1,14 +1,10 @@
 package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pizzeriaapp.R
 import com.example.pizzeriaapp.adapter.AdminUserAdapter
 import com.example.pizzeriaapp.databinding.FragmentAdminUserListBinding
 import com.example.pizzeriaapp.viewmodel.AdminUserListViewModel

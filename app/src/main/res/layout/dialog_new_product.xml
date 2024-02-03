@@ -53,7 +53,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="50"
-                    android:hint="Product name"
+                    android:hint="@string/product_name"
                     android:singleLine="true"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -76,7 +76,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLength="120"
-                    android:hint="Product description"
+                    android:hint="@string/product_description"
                     android:singleLine="true"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -98,7 +98,7 @@
                     android:id="@+id/product_photo_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Product photo URL"
+                    android:hint="@string/product_photo_url"
                     android:singleLine="true"
                     android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -122,7 +122,7 @@
                     android:id="@+id/product_price_editText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Product price"
+                    android:hint="@string/product_price"
                     android:maxLength="4"
                     android:singleLine="true"
                     android:inputType="number" />
@@ -135,7 +135,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Cancel"
+                android:text="@string/cancel"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -149,7 +149,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Confirm"
+                android:text="@string/confirm"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

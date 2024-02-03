@@ -1,19 +1,13 @@
 package com.example.pizzeriaapp.view.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.pizzeriaapp.R
 import com.example.pizzeriaapp.adapter.OrderAdapter
 import com.example.pizzeriaapp.databinding.FragmentEmployeeOrderHistoryBinding
-import com.example.pizzeriaapp.databinding.FragmentOrderListBinding
 import com.example.pizzeriaapp.viewmodel.EmployeeOrderHistoryViewModel
-import com.example.pizzeriaapp.viewmodel.OrderListViewModel
 
 class EmployeeOrderHistory : BaseFragment<FragmentEmployeeOrderHistoryBinding>(FragmentEmployeeOrderHistoryBinding::inflate) {
     private lateinit var empOrderHistoryRecyclerView: RecyclerView

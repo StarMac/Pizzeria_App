@@ -33,7 +33,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0"
-                tools:src="@tools:sample/backgrounds/scenic" />
+                tools:src="@tools:sample/backgrounds/scenic"
+                android:contentDescription="@string/cart_product_image" />
 
             <TextView
                 android:id="@+id/txt_cart_product_name"
@@ -72,17 +73,18 @@
                 android:layout_marginBottom="15dp"
                 android:background="@drawable/round_button"
                 android:scaleType="centerInside"
-                android:src="@drawable/ic_baseline_deacrease_button_24"
+                android:src="@drawable/ic_baseline_decrease_button_24"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/txt_cart_quantity"
-                app:layout_constraintTop_toBottomOf="@+id/txt_cart_product_name" />
+                app:layout_constraintTop_toBottomOf="@+id/txt_cart_product_name"
+                android:contentDescription="@string/decrease_button" />
 
             <TextView
                 android:id="@+id/txt_cart_quantity"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="10"
+                tools:text="10"
                 android:textColor="?android:textColorPrimary"
                 android:textSize="18sp"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_cart_decrease"
@@ -100,7 +102,8 @@
                 android:src="@drawable/ic_baseline_increase_button_24"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_cart_quantity"
                 app:layout_constraintStart_toEndOf="@+id/txt_cart_quantity"
-                app:layout_constraintTop_toTopOf="@+id/txt_cart_quantity" />
+                app:layout_constraintTop_toTopOf="@+id/txt_cart_quantity"
+                android:contentDescription="@string/increase_button" />
 
             <ImageView
                 android:id="@+id/btn_cart_delete"
@@ -110,7 +113,8 @@
                 android:src="@drawable/ic_baseline_delete_24"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_cart_quantity"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/txt_cart_quantity" />
+                app:layout_constraintTop_toTopOf="@+id/txt_cart_quantity"
+                android:contentDescription="@string/delete_Button" />
 
 
 

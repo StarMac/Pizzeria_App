@@ -1,12 +1,10 @@
 package com.example.pizzeriaapp.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -60,12 +58,12 @@ class CartAdapter(private var productList: List<OrderItem>, private val cartView
                 .into(productPhoto)
 
             increaseButton.setOnClickListener {
-                // Calling a function in CartViewModel to increase the number of
+                // Calling a function in CartViewModel to increase the number of product
                 cartViewModel.increaseQuantity(item)
             }
 
             decreaseButton.setOnClickListener {
-                // Calling a function in CartViewModel to decrease the number of
+                // Calling a function in CartViewModel to decrease the number of product
                 cartViewModel.decreaseQuantity(item)
             }
 

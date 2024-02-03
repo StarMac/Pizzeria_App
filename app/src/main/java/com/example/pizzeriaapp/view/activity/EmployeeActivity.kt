@@ -1,6 +1,5 @@
 package com.example.pizzeriaapp.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration

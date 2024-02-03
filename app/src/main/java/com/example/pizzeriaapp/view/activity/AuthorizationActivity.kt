@@ -152,9 +152,9 @@ class AuthorizationActivity :
                 intent?.let {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(it)
-                    overridePendingTransition(0, 0) // Отключает анимацию
+                    overridePendingTransition(0, 0) // Disables animation
                     finish()
-                    overridePendingTransition(0, 0) // Отключает анимацию
+                    overridePendingTransition(0, 0) // Disables animations
                 }
             }
         } else {

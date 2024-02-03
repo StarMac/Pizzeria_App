@@ -1,6 +1,5 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#00FFFFFF">
@@ -26,7 +25,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:textColor="?android:textColorPrimary"
-                android:text="Change a user role?"
+                android:text="@string/change_a_user_role"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,19 +49,19 @@
                     android:id="@+id/radio_client"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Client" />
+                    android:text="@string/client" />
 
                 <RadioButton
                     android:id="@+id/radio_employee"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Employee" />
+                    android:text="@string/employee" />
 
                 <RadioButton
                     android:id="@+id/radio_admin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Admin" />
+                    android:text="@string/admin" />
 
             </RadioGroup>
 
@@ -73,7 +72,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Cancel"
+                android:text="@string/cancel_Button"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -87,7 +86,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="20dp"
-                android:text="Confirm"
+                android:text="@string/confirm_Button"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"

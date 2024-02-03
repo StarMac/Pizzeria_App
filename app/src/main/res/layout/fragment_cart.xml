@@ -11,12 +11,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/cart_is_empty_textView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/your_cart_is_empty"
+            android:textColor="?android:textColorPrimary"
+            android:textSize="20sp" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/cart_recycleView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:paddingBottom="10dp" />
+            android:paddingBottom="10dp"
+            android:visibility="gone"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
@@ -26,7 +36,8 @@
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="66dp"
             android:background="#8C8C8C"
-            app:cardCornerRadius="10dp">
+            app:cardCornerRadius="10dp"
+            android:visibility="gone">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -45,7 +56,7 @@
                         android:id="@+id/total_price_textView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Price: "
+                        android:text="@string/total_price"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -59,7 +70,7 @@
                         android:id="@+id/total_price_value"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="120 UAH"
+                        tools:text="120 UAH"
                         android:textColor="?android:textColorPrimary"
                         android:textSize="20sp"
                         android:textStyle="bold" />
@@ -78,7 +89,7 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="150dp"
                         android:layout_height="80dp"
-                        android:text="self-delivery"
+                        android:text="@string/self_delivery"
                         app:cornerRadius="10dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -86,7 +97,7 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="150dp"
                         android:layout_height="80dp"
-                        android:text="Delivery"
+                        android:text="@string/delivery"
                         app:cornerRadius="10dp" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -104,7 +115,7 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="150dp"
                         android:layout_height="80dp"
-                        android:text="Cash"
+                        android:text="@string/cash"
                         app:cornerRadius="10dp" />
 
                     <com.google.android.material.button.MaterialButton
@@ -112,7 +123,7 @@
                         style="?attr/materialButtonOutlinedStyle"
                         android:layout_width="150dp"
                         android:layout_height="80dp"
-                        android:text="Card"
+                        android:text="@string/card"
                         app:cornerRadius="10dp" />
 
                 </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -133,7 +144,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:maxLength="100"
-                        android:hint="Address"
+                        android:hint="@string/address"
                         android:singleLine="true"
                         android:inputType= "text" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -147,7 +158,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="32dp"
                     android:layout_marginBottom="15dp"
-                    android:text="Order"
+                    android:text="@string/order"
                     android:textAllCaps="false"
                     android:textSize="16sp"
                     android:textStyle="bold" />

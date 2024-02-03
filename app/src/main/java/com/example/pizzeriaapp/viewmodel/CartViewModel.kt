@@ -32,7 +32,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
 
     val cartLiveData: LiveData<List<OrderItem>> get() = _cartLiveData
     val totalPriceLiveData: LiveData<Int> get() = _totalPriceLiveData
-    val userNameLiveData: LiveData<String> get() = _userNameLiveData
+    private val userNameLiveData: LiveData<String> get() = _userNameLiveData
     val isBannedLiveData: LiveData<Boolean> get() = _isBannedLiveData
     val userSignedOutLiveData: LiveData<Boolean> get() = _userSignedOutLiveData
 
@@ -150,7 +150,7 @@ class CartViewModel(application: Application) : AndroidViewModel(application) {
             }
 
             // Check if the order list is empty
-            if (currentOrderItems != null && currentOrderItems.isNotEmpty()) {
+            if (!currentOrderItems.isNullOrEmpty()) {
                 // We use the already existing method to calculate the total cost
                 val totalPrice = totalPriceLiveData.value ?: 0
 
